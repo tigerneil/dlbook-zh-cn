@@ -1,0 +1,263 @@
+%!TEX TS-program = xelatex
+%!TEX encoding = UTF-8 Unicode
+
+\documentclass[11pt,a4paper,oneside]{book}
+\usepackage[margin=2.5cm]{geometry}
+
+% ------------------------------------------------------------------------------
+% customize the headers with fancyhdr package
+% ------------------------------------------------------------------------------
+\usepackage{fancyhdr}
+\fancyhf{}
+\fancyhead[LE]{\leftmark}
+\fancyhead[RO]{\nouppercase{\rightmark}}
+\fancyfoot[LE,RO]{\thepage}
+\pagestyle{fancy}
+
+% ------------------------------------------------------------------------------
+% Index
+% ------------------------------------------------------------------------------
+\usepackage{makeidx}
+\makeindex
+
+% ------------------------------------------------------------------------------
+% Hyperlinks
+% ------------------------------------------------------------------------------
+\usepackage[colorlinks=true,linkcolor=blue]{hyperref}
+\usepackage[all]{hypcap}  % Be sure to call this package after loading hyperref.
+
+% ------------------------------------------------------------------------------
+% Glossaries, must be after hyperref
+% ------------------------------------------------------------------------------
+\usepackage[xindy,toc]{glossaries}
+\makeglossaries{}
+
+% ------------------------------------------------------------------------------
+% load tocbibind to add contents,list of figures, list of tables and
+% bibliography into the toc
+% ------------------------------------------------------------------------------
+\usepackage{tocbibind}
+
+% ------------------------------------------------------------------------------
+% Needed to load images
+% ------------------------------------------------------------------------------
+\usepackage{graphicx}
+\graphicspath{ {graphics/} }   % where to look for images
+
+% ------------------------------------------------------------------------------
+% for long and nice table
+% ------------------------------------------------------------------------------
+\usepackage{longtable}
+\usepackage{booktabs}
+\usepackage{ltxtable}
+
+% for compact item list
+\usepackage{paralist}
+
+% ------------------------------------------------------------------------------
+% Math - Warning: before cjkfonts (xeCJK) and other package loads fontspec
+% ------------------------------------------------------------------------------
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+
+% font selection for mathematics with XeLaTeX, MUST after amsfonts
+\usepackage{mathspec}
+% \setmathsfont(Digits,Latin,Greek)[Numbers={Lining,Proportional}]{Minion Pro}
+
+% ------------------------------------------------------------------------------
+% Localization setting
+% ------------------------------------------------------------------------------
+
+% load cjkfonts package and set Noto Sans SC as the default CJK fonts:
+\usepackage[default,mdseries=Light,bfseries=Medium]{cjkfonts}
+
+\usepackage{titlesec}
+
+\titleformat{\chapter}[display]
+  {\bfseries\huge}%
+  {\huge 第 \thechapter{} 章}%
+  {10 pt}%
+  {\bfseries\huge}%
+
+\renewcommand{\contentsname}{目录}
+\renewcommand{\indexname}{索引}
+
+% Redefine \emph to be both bold and italic, better in chinese document
+\let\emph\relax
+%\DeclareTextFontCommand{\emph}{\bfseries\em} % bold and italic
+\DeclareTextFontCommand{\emph}{\bfseries} % just bold
+
+\usepackage{indentfirst}
+
+% ------------------------------------------------------------------------------
+% Western fonts setting
+% ------------------------------------------------------------------------------
+
+% Set Roboto and Source Code Pro, which are installed with TexLive, for western
+% fonts:
+
+% \usepackage[no-math]{fontspec}
+
+\newcommand{\fontdir}[0]{/usr/local/texlive/2015/texmf-dist/fonts/}
+\newcommand{\robotodir}[0]{\fontdir/truetype/google/roboto/}
+\newcommand{\sourcecodeprodir}[0]{\fontdir/opentype/adobe/sourcecodepro/}
+\newcommand{\sourceserifprodir}[0]{\fontdir/opentype/adobe/sourceserifpro/}
+
+\newcommand{\robotomd}[0]{Light}
+\newcommand{\robotobf}[0]{Medium}
+\newcommand{\robotoit}[0]{LightItalic}
+\newcommand{\robotobi}[0]{MediumItalic}
+\newcommand{\codepromd}[0]{Light}
+\newcommand{\codeprobf}[0]{Medium}
+\newcommand{\codeproit}[0]{LightIt}
+\newcommand{\codeprobi}[0]{MediumIt}
+\newcommand{\serifpromd}[0]{Light}
+\newcommand{\serifprobf}[0]{Semibold}
+
+\newfontfamily\Roboto{Roboto}[
+  Extension=.ttf,
+  Path=\robotodir,
+  UprightFont=*-Regular,
+  BoldFont=*-Bold,
+  ItalicFont=*-RegularItalic,
+  BoldItalicFont=*-BoldItalic]
+
+\newfontfamily\SourceCodePro{SourceCodePro}[
+  Extension=.otf,
+  Path=\sourcecodeprodir,
+  UprightFont=*-\codepromd,
+  BoldFont=*-\codeprobf,
+  ItalicFont=*-\codeproit,
+  BoldItalicFont=*-\codeprobi]
+
+\newfontfamily\SourceSerifPro{SourceSerifPro}[
+  Extension=.otf,
+  Path=\sourceserifprodir,
+  UprightFont=*-\serifpromd,
+  BoldFont=*-\serifprobf]
+
+\newcommand{\serif}[0]{\SourceSerifPro}
+
+\newfontfamily\RobotoThin{Roboto}[
+  Extension=.ttf,
+  Path=\robotodir,
+  UprightFont=*-Thin,
+  ItalicFont=*-ThinItalic]
+
+\newfontfamily\RobotoLight{Roboto}[
+  Extension=.ttf,
+  Path=\robotodir,
+  UprightFont=*-Light,
+  ItalicFont=*-LightItalic]
+
+\newfontfamily\RobotoRegular{Roboto}[
+  Extension=.ttf,
+  Path=\robotodir,
+  UprightFont=*-Regular,
+  ItalicFont=*-RegularItalic]
+
+\newfontfamily\RobotoMedium{Roboto}[
+  Extension=.ttf,
+  Path=\robotodir,
+  UprightFont=*-Medium,
+  ItalicFont=*-MediumItalic]
+
+\newfontfamily\RobotoBold{Roboto}[
+  Extension=.ttf,
+  Path=\robotodir,
+  UprightFont=*-Bold,
+  ItalicFont=*-BoldItalic]
+
+\newfontfamily\RobotoBlack{Roboto}[
+  Extension=.ttf,
+  Path=\robotodir,
+  UprightFont=*-Black,
+  ItalicFont=*-BlackItalic]
+  
+\setmainfont{Roboto}[
+  Extension=.ttf,
+  Path=\robotodir,
+  UprightFont=*-\robotomd,
+  BoldFont=*-\robotobf,
+  ItalicFont=*-\robotoit,
+  BoldItalicFont=*-\robotobi]
+
+\setsansfont{Roboto}[
+  Extension=.ttf,
+  Path=\robotodir,
+  UprightFont=*-\robotomd,
+  BoldFont=*-\robotobf,
+  ItalicFont=*-\robotoit,
+  BoldItalicFont=*-\robotobi]
+
+\setmonofont{SourceCodePro}[
+  Extension=.otf,
+  Path=\sourcecodeprodir,
+  UprightFont=*-\codepromd,
+  BoldFont=*-\codeprobf,
+  ItalicFont=*-\codeproit,
+  BoldItalicFont=*-\codeprobi]
+
+% ------------------------------------------------------------------------------
+% Line space
+% ------------------------------------------------------------------------------
+\usepackage{setspace}
+\onehalfspacing{}
+
+% ------------------------------------------------------------------------------
+% The document body
+% ------------------------------------------------------------------------------
+
+\begin{document}
+
+\input{contents/title}
+
+\frontmatter
+
+%\maketitle
+
+\tableofcontents
+%\listoffigures
+%\listoftables
+
+\pagebreak
+
+\input{contents/acknowledgements}
+\input{contents/notation}
+
+\mainmatter{}
+
+\input{contents/intro}
+\input{contents/part_basics}
+\input{contents/linear_algebra}
+\input{contents/prob}
+\input{contents/numerical}
+\input{contents/ml}
+\input{contents/part_practical}
+\input{contents/mlp}
+\input{contents/regularization}
+\input{contents/optimization}
+\input{contents/convnets}
+\input{contents/rnn}
+\input{contents/guidelines}
+\input{contents/applications}
+\input{contents/part_research}
+\input{contents/linear_factors}
+\input{contents/autoencoders}
+\input{contents/representation}
+\input{contents/graphical_models}
+\input{contents/monte_carlo}
+\input{contents/partition}
+\input{contents/inference}
+\input{contents/generative_models}
+
+\appendix
+
+\backmatter{}
+
+\printindex
+
+\printglossaries{}
+
+\end{document}
