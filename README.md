@@ -33,8 +33,8 @@ $ git clone --recursive https://github.com/zhanggyb/dlbook.git
 
 or
 ```shell
-$ git clone https://github.com/zhanggyb/dlbook.git
-$ cd nndl
+$ git clone https://github.com/tigerneil/dlbook-zh-cn.git
+$ cd dlbook
 $ git submodule update --init --recursive
 ````
 
