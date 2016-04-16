@@ -1,7 +1,7 @@
 Deep Learning Book
 ==================
 
-**This is just a demo and skeleton for Deep Learning Book Chinese Version, DO NOT FORK, use the repo which will be hosted by someone else later.**
+**This is a skeleton for Deep Learning Book Chinese Version.**
 
 ## Compile the LaTeX Source Code
 
