@@ -65,6 +65,12 @@
 \usepackage{mathspec}
 % \setmathsfont(Digits,Latin,Greek)[Numbers={Lining,Proportional}]{Minion Pro}
 
+% There's no italic sans-serif math font by default, but it's needed in this book
+% follow: http://tex.stackexchange.com/questions/77640/bold-italic-and-sans-serif-math-symbols
+% to define a \mathsfit{} macro
+\DeclareMathAlphabet{\mathsfit}{\encodingdefault}{\sfdefault}{m}{sl}
+\SetMathAlphabet{\mathsfit}{bold}{\encodingdefault}{\sfdefault}{bx}{sl}
+
 % ------------------------------------------------------------------------------
 % Localization setting
 % ------------------------------------------------------------------------------
@@ -73,6 +79,12 @@
 \usepackage[default,mdseries=Light,bfseries=Medium]{cjkfonts}
 
 \usepackage{titlesec}
+
+\titleformat{\part}[display]
+{\centering\bfseries\Huge}%
+{\Huge 第 \thepart{} 部分}%
+{12 pt}%
+{\bfseries\Huge}%
 
 \titleformat{\chapter}[display]
   {\bfseries\huge}%

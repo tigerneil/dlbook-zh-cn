@@ -28,7 +28,7 @@ with `tlmgr` command.
 Use git to clone this repository and the code samples as a sub module:
 
 ```shell
-$ git clone --recursive https://github.com/zhanggyb/dlbook.git
+$ git clone --recursive https://github.com/tigerneil/dlbook-zh-cn.git
 ````
 
 or
