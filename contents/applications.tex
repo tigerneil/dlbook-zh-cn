@@ -98,3 +98,18 @@ cuda-convnet \citep{krizhevsky2010convolutional} 的形式指定所有它的机�
 Theano 程序可以运行在CPU 或 GPU上，不需要改变任何自身对 Theano 的调用。其它库，
 例如 TensorFlow \citep{tensorflow} 和 Torch \citep{collobert2011torch7} 提供了类
 似的特性。
+
+\subsection{大规模分布式实现}
+\label{subsec:large_scale_distributed_implementations}
+
+在许多情况下，在一台机器上可用的计算资源是不够的。因此，我们想要在多台机器间分配
+训练和推断结果的工作负担。
+
+分配推断结果的工作简单，因为每个我们想要处理的能被单独的机器运行。这称为\emph{数
+  据并行}。
+
+也可能取得\emph{模型并行}，其中多台机器在单个数据点上一起工作，每台机器运行模型
+的不同部分。这对于推断结果和训练都很灵活。
+
+训练期间的数据并行有点难。我们可以增加用于单个 \gls{SGD} 步骤的小批量数据的规模，
+但是通常我们在性能优化方面得到更少的线性回报。
