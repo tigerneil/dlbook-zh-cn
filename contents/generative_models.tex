@@ -1,2 +1,42 @@
-\chapter{Deep Generative Models}
+\chapter{深度生成式模型}
 \label{ch:generative_models}
+
+In this chapter, we present several of the specific kinds of generative models that can be built and trained using the techniques presented in Chapters 16, 17, 18 and 19. All of these models represent probability distributions over multiple variables in some way. Some allow the probability distribution function to be evaluated explicitly. Others do not allow the evaluation of the probability distribution function, but support operations that implicitly require knowledge of it, such as drawing samples from the distribution. Some of these models are structured probabilistic models described in terms of graphs and factors, using the language of graphical models presented in Chapter 16. Others can not easily be described in terms of factors, but represent probability distributions nonetheless.
+
+本章我们会介绍几种特定类型的生成式模型，这些模型可以使用在第 16、17、18 和 19 章中讲解的技术来构建和训练。所有这些模型表示了按照某种方式在多个随机变量上的概率分布。某些模型可以显式地计算概率分布函数。其他一些模型不支持
+
+
+\section{玻尔兹曼机}
+玻尔兹曼机最初是作为一种通用的“连接主义”观点被提出的，这是一种学习二元向量上的任意概率分布的方法。(Fahlman et al., 1983; Ackley et al., 1985; Hinton et al., 1984; Hinton and Sejnowski, 1986). 玻尔兹曼机的变体包含其他类型的变量早已成为了比原始版本更加流行的形式。本节，我们简要介绍二元玻尔兹曼机，讨论在训练和推断时会出现的问题。\\
+
+我们在一个 $d$-维二元向量 $\mathbf{x} \in \{0,1\}^d$ 上定义了玻尔兹曼机。玻尔兹曼机是一个基于能量的模型 (Sec. 16.2.4)，这表示我们使用一个能量函数定义了联合概率分布：
+$$P(x) = \frac{\exp(-E( \textbf{\emph{x}}))}{Z},$$
+其中 $E(x)$ 是能量函数，$Z$ 是满足 $\sum_x P(x) = 1$ 配分函数。玻尔兹曼机的能量函数按照下式给定：
+$$E(x) = - \textbf{\emph{x}}^\mathrm{ T } U  \textbf{\emph{x}}  -  \textbf{\emph{b}}^\mathrm{ T }  \textbf{\emph{x}},$$
+其中 $mathbb{U}$ 是模型参数的权重矩阵，$b$ 是偏差参数的向量。\\
+玻尔兹曼机一般情形是，给定一个 $n$-维训练样本的集合。公式 20.1 描述了观察到的变量上的联合概率分布。尽管这样理论上可行，同时却会限制观察变量之间的到交互到权重矩阵上。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
