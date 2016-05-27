@@ -84,7 +84,7 @@ p(\mathbf{x};\pmb{\theta}) = \frac{1}{Z(\pmb{\theta})} \tilde{p}(\mathbf{x}; \pm
 
 这个等式
 \begin{equation}  \label{eq:pyth}
-\nabla_{\pmb{\theta}} Z = \mathbb{E}_{\mathbf{x}\sim p(\mathbf{x})} \nabla_{\pmb{\theta}} \log \tilde{p}(\mathbf{x})
+\nabla_{\pmb{\theta}} \log Z = \mathbb{E}_{\mathbf{x}\sim p(\mathbf{x})} \nabla_{\pmb{\theta}} \log \tilde{p}(\mathbf{x})
 \end{equation}
 是一系列 Monte Carlo 方法的基础，可以用来近似最大化那些有着难解的配分函数的模型的似然函数.\\
 
