@@ -101,10 +101,10 @@
   {\Large\bfseries 概率与信息论}\\
   \vspace{1em}
   \begin{tabular}{c l}
-    $\mathrm{a} \bot \mathrm{b}$ & 随机变量 $\mathrm{a}$ 与 $\mathrm{b}$ 彼此无关 \\
-    $\mathrm{a} \bot \mathrm{b}\: | \: \mathrm{c}$ & 给定 $\mathrm{c}$ 时它们彼此无关 \\
-    $P(\mathrm{a})$ & 离散变量的概率分布 \\
-    $p(\mathrm{a})$ & 一个连续变量，或者类型没有具体定义的变量上的概率分布 \\
+    $\mathrm{a} \bot \mathrm{b}$ & 随机变量 $\mathrm{a}$ 与 $\mathrm{b}$ 互相独立 \\
+    $\mathrm{a} \bot \mathrm{b}\: | \: \mathrm{c}$ & 给定 $\mathrm{c}$ 时它们条件独立 \\
+    $P(\mathrm{a})$ & 一个离散变量上的概率分布 \\
+    $p(\mathrm{a})$ & 一个连续变量，或者类型没有指定的变量上的概率分布 \\
     $\mathrm{a} \sim P$ & 随机变量 $\mathrm{a}$ 具有 $P$ 的分布 \\
     $\mathbb{E}_{\mathrm{x} \sim P} [f(x)]$ 或 $\mathbb{E}f(x)$ & $f(x)$ 对 $P(\mathrm{x})$ 的期望 \\
     $\mathrm{Var}(f(x))$ & 在 $P(\mathrm{x})$ 下 $f(x)$ 的方差 \\
@@ -137,7 +137,7 @@
 
 有时候我们使用一个参数是一个标量的函数 $f$，但是将它应用到一个向量，矩阵，
 或者张量：$f(\pmb{x})$，$f(\pmb{X})$，或 $f(\pmb{\mathsf{X}})$。
-这意思是将 $f$ 应用到按元素的数组。例如，如果 $\pmb{\mathsf{C}} = \sigma(\pmb{\mathsf{X}})$，
+这意思是将 $f$ 按元素应用到数组。例如，如果 $\pmb{\mathsf{C}} = \sigma(\pmb{\mathsf{X}})$，
 那么对于所有有效的 $i$，$j$ 和 $k$ 的值，$\mathsfit{C}_{i,j,k} = \sigma(\mathsfit{X}_{i,j,k})$。
 
 \vspace{1em}
@@ -147,7 +147,7 @@
   {\Large\bfseries 数据集和分布}\\
   \vspace{1em}
   \begin{tabular}{c l}
-    $p_{\mathrm{data}}$ & 数据生成分布 \\
+    $p_{\mathrm{data}}$ & 数据生成的分布 \\
     $\hat{p}_{\mathrm{data}}$ & 由训练集定义的经验分布 \\
     $\mathbb{X}$ & 一个训练样本集 \\
     $\pmb{x}^{(i)}$ & （输入自）数据集的第 $i$ 个样本 \\
