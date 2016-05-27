@@ -17,3 +17,8 @@ auto
 *.glo
 
 *.DS_Store
+*.run.xml
+*.blg
+*.bcf
+*.bbl
+*-blx.bib

@@ -36,7 +36,30 @@
 % load tocbibind to add contents,list of figures, list of tables and
 % bibliography into the toc
 % ------------------------------------------------------------------------------
+% \usepackage[utf8]{inputenc}
+% \usepackage[english]{babel}
+\usepackage[
+	backend=bibtex,
+	natbib,
+	style=authoryear,
+	citestyle=authoryear,
+	maxbibnames=99,
+	maxcitenames=1
+]{biblatex}
+\addbibresource{dlbook.bib}
+
+% make the 'et al.' italic
+\DefineBibliographyStrings{english}{%
+    andothers = {\it et\addabbrvspace al\adddot}
+}
+
+% \usepackage{natbib}
 \usepackage{tocbibind}
+
+% ------------------------------------------------------------------------------
+% Needed to level up the bibliography in the toc
+% ------------------------------------------------------------------------------
+\usepackage{bookmark}
 
 % ------------------------------------------------------------------------------
 % Needed to load images
@@ -53,6 +76,8 @@
 
 % for compact item list
 \usepackage{paralist}
+% \usepackage{enumitem}
+\usepackage[inline]{enumitem}
 
 % ------------------------------------------------------------------------------
 % Math - Warning: before cjkfonts (xeCJK) and other package loads fontspec
@@ -60,6 +85,7 @@
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{amssymb}
+\numberwithin{equation}{chapter}
 
 % font selection for mathematics with XeLaTeX, MUST after amsfonts
 \usepackage{mathspec}
@@ -264,12 +290,18 @@
 \input{contents/inference}
 \input{contents/generative_models}
 
-\appendix
+% \appendix
+% appendix chapters here
 
 \backmatter{}
 
-\printindex
+\bookmarksetup{startatroot}
 
-\printglossaries{}
+\printbibliography[
+	heading=bibintoc,
+	title={参考文献}
+]
+\printglossaries
+\printindex
 
 \end{document}
