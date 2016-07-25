@@ -83,7 +83,7 @@ p(\mathbf{x};\pmb{\theta}) = \frac{1}{Z(\pmb{\theta})} \tilde{p}(\mathbf{x}; \pm
 幸运的是，大多数机器学习模型满足这些条件.\\
 
 这个等式
-\begin{equation}  \label{eq:pyth}
+\begin{equation}  \label{eq:pyth15}
 \nabla_{\pmb{\theta}} \log Z = \mathbb{E}_{\mathbf{x}\sim p(\mathbf{x})} \nabla_{\pmb{\theta}} \log \tilde{p}(\mathbf{x})
 \end{equation}
 是一系列 Monte Carlo 方法的基础，可以用来近似最大化那些有着难解的配分函数的模型的似然函数.\\
@@ -91,5 +91,41 @@ p(\mathbf{x};\pmb{\theta}) = \frac{1}{Z(\pmb{\theta})} \tilde{p}(\mathbf{x}; \pm
 学习无向模型的 Monte Carlo 方法给出了一个直觉框架，我们可以利用这样的框架来思考正部和负部. 在正部中，我们对那些从数据抽取的 $\pmb{x}$ 增加 $\log \tilde{p}(\mathbf{x})$. 在负部中，我们通过减少从模型分布中个采样的 $\log \tilde{p}(\mathbf{x})$ 来降低配分函数.\\
 
 在深度学习文献中，通常会用能量函数参数化 $\log \tilde{p}$（Eq. 16.7）. 在这种情况下，我们可以将正部解释为降低训练样本的能量，而负部则是提升从模型中采样的样本的能量，如图 18.1 所示.
+
+\section{随机最大似然和对比散度}
+
+实现 \eqref{eq:pyth15} 的基本方式是每次需要计算梯度时从一个随机初始化状态的 Markov 链的集合中进行老化（burning）. 在使用随机梯度下降算法进行学习时，这个 Markov 链必须每个梯度步都已经老化. 这个想法就是算法~\ref{alg:mcmc}
+中的训练过程. 内循环中的 Markov 链老化的计算代价让这个过程在计算上不可行，但是这个过程本身是其他实效的近似算法的起点. 
+
+% \begin{algorithm}[H]
+%     设置 $\epsilon$，一个很小的正数作为步长.
+%     设置 $\k$，Gibbs 步数，足够长满足老化条件. 在一个小的图像块（image patch）上训练 RBM 可能需要 $100$.
+
+
+%   \caption{用来最大化对数似然函数的 MCMC 算法，使用梯度下降来处理难解的配分函数}
+%   \label{alg:algorithm1}
+% \end{algorithm}
+
+\begin{algorithm}
+\begin{algorithmic}
+\caption{用来最大化对数似然函数的 MCMC 算法，使用梯度下降来处理难解的配分函数}
+\label{alg:mcmc}
+\STATE 设置 $\epsilon$，一个很小的正数作为步长.
+\STATE 设置 $k$，Gibbs 步数，足够长满足老化条件. 在一个小的图像块（image patch）上训练 RBM 可能需要 $100$.
+\WHILE{未收敛}
+	\STATE 从训练集中采样 $m$ 个样本 $\{x^{(1)},\dots,x^{(m)}\}$ 的一个\gls{minibatch}.
+	\STATE $\mathbf{g} \leftarrow \frac{1}{m}\,\sum_{i = 1}^{m} \nabla_{\pmb{\theta}} \log\tilde{p}(x^{(i)};\pmb{\theta})$.
+	\STATE 将随机值为对应 $m$ 个样本 $\{\tilde{\mathbf{x}}^{(1)},\dots,\tilde{\mathbf{x}}^{(m)}\}$ 初始化（如，从一个均匀分布或者正态分布，或者也可能是有匹配于模型边缘分布的分布）.
+	\FOR{$i = 1$ to $k$}
+	 	\FOR{$j = 1$ to $m$}
+		\STATE $\tilde{\mathbf{x}}^{(j)} \leftarrow \mathrm{gibbs\_update}(\tilde{\mathbf{x}}^{(j)})$
+		\ENDFOR
+	\ENDFOR
+	\STATE $\mathbf{g} \leftarrow \frac{1}{m}\,\sum_{i = 1}^{m} \nabla_{\pmb{\theta}} \log\tilde{p}(x^{(i)};\pmb{\theta})$.
+	\STATE $\pmb{\theta} \leftarrow \pmb{\theta} + \epsilon \mathbf{g}$.
+\ENDWHILE
+
+\end{algorithmic}
+\end{algorithm}
 
 
