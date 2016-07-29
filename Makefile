@@ -9,14 +9,16 @@ RM = rm -rf
 MAKE = make
 TARGET = dlbook.pdf
 SOURCES := $(wildcard *.tex)
-GRAPHICSDEPS := $(wildcard graphics/*.eps)
+FIGURESDEPS := $(wildcard figures/*.eps)
+FIGURESDEPS += $(wildcard figures/*.png)
+FIGURESDEPS += $(wildcard figures/*.jpg)
 CONTENTS := $(wildcard contents/*.tex)
 
-.PHONY: all graphics
+.PHONY: all
 
 all: $(TARGET)
 
-$(TARGET): $(SOURCES) $(GRAPHICSDEPS) $(CONTENTS) dlbook.bib
+$(TARGET): $(SOURCES) $(FIGURESDEPS) $(CONTENTS) dlbook-complete.bib
 	$(TEX) $(basename $@)
 	$(MKBIB) $(basename $@)
 	$(MKIDX) $(basename $@)

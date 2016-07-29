@@ -53,6 +53,11 @@
     andothers = {\it et\addabbrvspace al\adddot}
 }
 
+% A workaround to fix a known bug in biblatex, see http://tex.stackexchange.com/questions/311426/bibliography-error-use-of-blxbblverbaddi-doesnt-match-its-definition-ve
+\makeatletter
+\def\blx@maxline{77}
+\makeatother
+
 % \usepackage{natbib}
 \usepackage{tocbibind}
 
