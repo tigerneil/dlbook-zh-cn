@@ -46,7 +46,7 @@
 	maxbibnames=99,
 	maxcitenames=1
 ]{biblatex}
-\addbibresource{dlbook.bib}
+\addbibresource{dlbook-complete.bib}
 
 % make the 'et al.' italic
 \DefineBibliographyStrings{english}{%
@@ -61,11 +61,13 @@
 % ------------------------------------------------------------------------------
 \usepackage{bookmark}
 
+\usepackage[figurename=图.]{caption}
+
 % ------------------------------------------------------------------------------
 % Needed to load images
 % ------------------------------------------------------------------------------
 \usepackage{graphicx}
-\graphicspath{ {graphics/} }   % where to look for images
+\graphicspath{{./figures/}}   % where to look for images
 
 % ------------------------------------------------------------------------------
 % for long and nice table

@@ -128,4 +128,21 @@ p(\mathbf{x};\pmb{\theta}) = \frac{1}{Z(\pmb{\theta})} \tilde{p}(\mathbf{x}; \pm
 \end{algorithmic}
 \end{algorithm}
 
+我们可以将最大似然 MCMC 方法看成是尝试达到两个力量的平衡，一个力量在数据出现时将模型分布上推，而另一个则在模型的样本出现时下推模型分布. 
+图~\ref{fig:18.1}
+
+% \begin{figure}
+% \centering 
+% \includegraphics[width=1.0\textwidth]{figure18-1} 
+% \caption{算法~\ref{alg:mcmc} 的正部和负部. 左图，在正部中，我们从数据分布中采样，上推他们的未规范化概率. 可能在数据中的点被更多地上推. 右图，在负部中，我们从模型的概率分布采样，下推他们的未规范化概率. 这样会抵制正部的倾向于在每个处都给未规范化概率加上一个大的常量. 当数据分布和模型分布等同时，正部和负部分别有同样的机会上推和下推. 这种情形出现时，就不再回产生梯度（期望形式），训练必须终止.}
+% \label{fig:18.1} 
+% \end{figure}
+
+\begin{figure}[htp]
+\centering \includegraphics[width=1.0\textwidth]{figure18-1} 
+\caption{算法~\ref{alg:mcmc} 的正部和负部. 左图，在正部中，我们从数据分布中采样，上推他们的未规范化概率. 可能在数据中的点被更多地上推. 右图，在负部中，我们从模型的概率分布采样，下推他们的未规范化概率. 这样会抵制正部的倾向于在每个处都给未规范化概率加上一个大的常量. 当数据分布和模型分布等同时，正部和负部分别有同样的机会上推和下推. 这种情形出现时，就不再回产生梯度（期望形式），训练必须终止.} 
+\label{fig:18.1}
+\end{figure}
+
+
 
