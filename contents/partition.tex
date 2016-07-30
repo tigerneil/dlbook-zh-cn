@@ -29,7 +29,7 @@ p(\mathbf{x};\pmb{\theta}) = \frac{1}{Z(\pmb{\theta})} \tilde{p}(\mathbf{x}; \pm
 让通过最大似然估计在学习无向的模型中尤其困难的原因是配分函数依赖于参数. 对数似然函数关于参数的梯度包含一个配分函数的梯度项：
 
 \begin{equation}  \label{eq:pyth}
-\nabla_{\pmb{\theta}} \log p(\mathbf{x};\pmb{\theta}) = \nabla_{\pmb{\theta}} \log \tilde{p}(\mathbf{x};\pmb{\theta}) - \nabla_{\pmb{\theta}} \log Z\pmb{\theta})
+\nabla_{\pmb{\theta}} \log p(\mathbf{x};\pmb{\theta}) = \nabla_{\pmb{\theta}} \log \tilde{p}(\mathbf{x};\pmb{\theta}) - \nabla_{\pmb{\theta}} \log Z(\pmb{\theta})
 \end{equation}
 
 这是一个著名的分解——将学习分成正负两个部分.\\
@@ -45,21 +45,21 @@ p(\mathbf{x};\pmb{\theta}) = \frac{1}{Z(\pmb{\theta})} \tilde{p}(\mathbf{x}; \pm
 =\frac{\frac{\partial}{\partial \pmb{\theta}} Z}{Z}
 \end{equation}
 \begin{equation}  \label{eq:pyth}
-=\frac{\frac{\partial}{\partial \pmb{\theta}} \sum_{\mathbf{x} \tilde{p}(\mathbf{x})}}{Z}
+=\frac{\frac{\partial}{\partial \pmb{\theta}} \sum_{\mathbf{x}} \tilde{p}(\mathbf{x})}{Z}
 \end{equation}
 \begin{equation}  \label{eq:pyth}
-=\frac{\sum_{\mathbf{x} \frac{\partial}{\partial \pmb{\theta}} \tilde{p}(\mathbf{x})}}{Z}
+=\frac{\sum_{\mathbf{x} \frac{\partial}{\partial \pmb{\theta}}} \tilde{p}(\mathbf{x})}{Z}
 \end{equation}
 
 对于那些对所有的 $\mathbf{x}$ 保证 $p(\mathbf{x}) > 0$ 的模型，我们可以为 $\tilde{p}(\mathbf{x})$ 替换 $\exp(\log \tilde{p}(\mathbf{x})$：
 \begin{equation}  \label{eq:pyth}
-\frac{\sum_{\mathbf{x} \frac{\partial}{\partial \pmb{\theta}} \exp(\log \tilde{p}(\mathbf{x}))}}{Z}
+\frac{\sum_{\mathbf{x}} \frac{\partial}{\partial \pmb{\theta}} \exp(\log \tilde{p}(\mathbf{x}))}{Z}
 \end{equation}
 \begin{equation}  \label{eq:pyth}
-=\frac{\sum_{\mathbf{x} \exp(\log\tilde{p}(\mathbf{x})) \frac{\partial}{\partial \pmb{\theta}} \tilde{p}(\mathbf{x})}}{Z}
+=\frac{\sum_{\mathbf{x}} \exp(\log\tilde{p}(\mathbf{x})) \frac{\partial}{\partial \pmb{\theta}} \tilde{p}(\mathbf{x})}{Z}
 \end{equation}
 \begin{equation}  \label{eq:pyth}
-=\frac{\sum_{\mathbf{x} \tilde{p}(\mathbf{x}) \frac{\partial}{\partial \pmb{\theta}} \tilde{p}(\mathbf{x})}}{Z}
+=\frac{\sum_{\mathbf{x}} \tilde{p}(\mathbf{x}) \frac{\partial}{\partial \pmb{\theta}} \tilde{p}(\mathbf{x})}{Z}
 \end{equation}
 \begin{equation}  \label{eq:pyth}
 =\sum_{x}p(\mathbf{x}) \frac{\partial}{\partial \pmb{\theta}} \log \tilde{p}(\mathbf{x})
