@@ -53,6 +53,11 @@
     andothers = {\it et\addabbrvspace al\adddot}
 }
 
+% A workaround to fix a known bug in biblatex, see http://tex.stackexchange.com/questions/311426/bibliography-error-use-of-blxbblverbaddi-doesnt-match-its-definition-ve
+\makeatletter
+\def\blx@maxline{77}
+\makeatother
+
 % \usepackage{natbib}
 \usepackage{tocbibind}
 
@@ -128,6 +133,8 @@
 
 \renewcommand{\contentsname}{目录}
 \renewcommand{\indexname}{索引}
+\renewcommand{\figurename}{图}
+\renewcommand{\tablename}{表}
 
 % Redefine \emph to be both bold and italic, better in chinese document
 %\let\emph\relax
@@ -145,10 +152,9 @@
 
 % \usepackage[no-math]{fontspec}
 
-\newcommand{\fontdir}[0]{/usr/local/texlive/2015/texmf-dist/fonts/}
-\newcommand{\robotodir}[0]{\fontdir/truetype/google/roboto/}
-\newcommand{\sourcecodeprodir}[0]{\fontdir/opentype/adobe/sourcecodepro/}
-\newcommand{\sourceserifprodir}[0]{\fontdir/opentype/adobe/sourceserifpro/}
+\newcommand{\robotodir}[0]{fonts/}
+\newcommand{\sourcecodeprodir}[0]{fonts/}
+\newcommand{\sourceserifprodir}[0]{fonts/}
 
 \newcommand{\robotomd}[0]{Light}
 \newcommand{\robotobf}[0]{Medium}
@@ -166,7 +172,7 @@
   Path=\robotodir,
   UprightFont=*-Regular,
   BoldFont=*-Bold,
-  ItalicFont=*-RegularItalic,
+  ItalicFont=*-Italic,
   BoldItalicFont=*-BoldItalic]
 
 \newfontfamily\SourceCodePro{SourceCodePro}[
@@ -201,7 +207,7 @@
   Extension=.ttf,
   Path=\robotodir,
   UprightFont=*-Regular,
-  ItalicFont=*-RegularItalic]
+  ItalicFont=*-Italic]
 
 \newfontfamily\RobotoMedium{Roboto}[
   Extension=.ttf,
