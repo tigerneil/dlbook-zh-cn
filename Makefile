@@ -10,6 +10,7 @@ MAKE = make
 TARGET = dlbook.pdf
 SOURCES := $(wildcard *.tex)
 FIGURESDEPS := $(wildcard figures/*.eps)
+FIGURESDEPS := $(wildcard figures/*.pdf)
 FIGURESDEPS += $(wildcard figures/*.png)
 FIGURESDEPS += $(wildcard figures/*.jpg)
 CONTENTS := $(wildcard contents/*.tex)
