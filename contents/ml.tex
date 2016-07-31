@@ -1,2 +1,38 @@
 \chapter{机器学习基础}
 \label{ch:ml}
+
+Deep learning is a specific kind of machine learning. In order to understand deep learning well, one must have a solid understanding of the basic principles of machine learning. This chapter provides a brief course in the most important general principles that will be applied throughout the rest of the book. Novice readers or those who want a wider perspective are encouraged to consider machine learning textbooks with a more comprehensive coverage of the fundamentals, such as Murphy (2012) or Bishop (2006). If you are already familiar with machine learning basics, feel free to skip ahead to Sec. 5.11. That section covers some per- spectives on traditional machine learning techniques that have strongly influenced the development of deep learning algorithms.
+
+深度学习是一种特殊情形的机器学习。扎实的机器学习原理知识能够帮助更好的理解深度学习。这一章节提供了一个简要的机器学习课程，覆盖了重要的机器学习原理，这些原理贯穿了本书的其他章节。新的读者或者想扩展视角的读者可以考虑阅读更全面覆盖机器学习基础知识的教科书，比如 \cite{MMmphy}，或者 \cite{Bishop}。如果你已经熟悉机器学习原理，你可以跳到5.11节。在5.11节中，覆盖了强烈影响深度学习算法发展的传统机器学习技术的一些因素。
+
+We begin with a definition of what a learning algorithm is, and present an example: the linear regression algorithm. We then proceed to describe how the challenge of fitting the training data differs from the challenge of finding patterns that generalize to new data. Most machine learning algorithms have settings called hyperparameters that must be determined external to the learning algorithm itself; we discuss how to set these using additional data. Machine learning is essentially a form of applied statistics with increased emphasis on the use of computers to statistically estimate complicated functions and a decreased emphasis on proving confidence intervals around these functions; we therefore present the two central approaches to statistics: frequentist estimators and Bayesian inference. Most machine learning algorithms can be divided into the categories of supervised learning and unsupervised learning; we describe these categories and give some examples of simple learning algorithms from each category. Most deep learning algorithms are based on an optimization algorithm called stochastic gradient descent. We describe how to combine various algorithm components such as an optimization algorithm, a cost function, a model, and a dataset to build a machine learning algorithm. Finally, in Sec. 5.11, we describe some of the factors that have limited the ability of traditional machine learning to generalize. These challenges have motivated the development of deep learning algorithms that overcome these obstacles.
+
+我们从什么是学习算法的定义开始，并且展示了一个学习算法的例子：线性回归算法 (Linear Regression Algorithm)。然后，我们继续描述拟合训练数据的挑战与发现的模式并将其推广到新的数据上的挑战之间的不同。大多数机器学习算法有超参数(hyperparameter)的设定，超参数是由外部决定的而不是算法本身。机器学习本质上是应用统计学的一种形式，注重从统计学的角度利用计算机来估计复杂的函数，并且降低了围绕这些函数置信区间证明的强调；因此，我们介绍两种常用的统计学方法：频率估计和贝叶斯推理。大多数机器学习算法可分为监督学习和无监督学习两类；我们描述这些类别并且每一类给出一些简单的例子。大多数深度学习算法是建立在随机梯度下降优化算法之上的。我们描述了如何将不同的算法组件，比如，优化算法，成本函数，模型，数据，组合在一起去构建机器学习算法。最后，在5.11节中，我们描述了一些限制传统机器学习泛化的一些因素。这些挑战促进了深度学习的发展去克服这些障碍。
+
+
+
+\section{学习算法 Learning Algorithms}
+
+A machine learning algorithm is an algorithm that is able to learn from data. But what do we mean by learning? Mitchell (1997) provides the definition “A computer program is said to learn from experience E with respect to some class of tasks T and performance measure P, if its performance at tasks in T, as measured by P, improves with experience E.” One can imagine a very wide variety of experiences E, tasks T, and performance measures P, and we do not make any attempt in this book to provide a formal definition of what may be used for each of these entities. Instead, the following sections provide intuitive descriptions and examples of the different kinds of tasks, performance measures and experiences that can be used to construct machine learning algorithms.
+
+机器学习算法是一种能够从数据中学习的算法。但是，所说的学习指的是什么呢？Mitchell (1997) 给出了定义 “对于某类任务T和性能度量P，如果一个计算机程序在T上以P衡量的性能随着经验E而自我完善，那么我们称这个计算机程序在从经验E学习。“
+
+\section{Capacity, Overfitting and Underfitting}
+
+\section{Hyperparameters and Validation Sets}
+
+\section{Estimators, Bias and Variance}
+
+\section{Maximum Likelihood Estimation}
+
+\section{Bayesian Statistics}
+
+\section{Supervised Learning Algorithms}
+
+\section{Unsupervised Learning Algorithms}
+
+\section{Stochastic Gradient Descent}
+
+\section{Building a Machine Learning Algorithm}
+
+\section{Challenges Motivating Deep Learning}
