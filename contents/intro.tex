@@ -217,6 +217,40 @@
 \end{figure}
 
 \section{谁应该读这本书？}
+\label{sec:who_should_read_this_book}
+
+这本书对各种读者都会有用，但我们心怀两个主要的受众来写它。一个目标受众是正在学习
+\gls*{ml}的大学学生（本科生或研究生），包括那些开启职业生涯于\gls*{dl}和
+\gls*{ai}研究的学生。另一个目标受众是没有\gls*{ml}或统计背景的软件工程师，但是想
+要快速获得并在他们的产品或平台上开始使用\gls*{dl}。\gls*{dl}已经被证明在许多软件
+学科中是有用的，包括计算机视觉、语音处理、自然语言处理、机器人学、生物信息学和化
+学、视频游戏、搜索引擎、在线广告和金融。
+
+这本书被组织为三个部分，以便适应于各种读者。第\hyperref[part_basics]{一}部分介绍
+基础的数学工具和\gls*{ml}概念。第\hyperref[part_practical]{二}部分描述大部分已经
+认可的\gls*{dl}算法，它们是基本上已经被解决的技术。第\hyperref[part_research]{三}部
+分描述更多推测性的概念，它们被广泛认为在未来的\gls*{dl}中是重要的。
+
+读者可以按照他们的兴趣和背景随意跳过那些不相关的部分。例如，熟悉线性代数，概率，
+和基本的\gls*{ml}概念的读者可以跳过第\hyperref[part_basics]{一}部分，而只想实现
+一个可工作的系统的读者不需要阅读第\hyperref[part_practical]{二}部分之外的内容。
+为了帮助选择哪些章节阅读，图 1.6 提供了一个流程图，显示了该书的高层次组织。
+
+\begin{figure}[h]
+  \centering
+  \begin{tikzpicture}[
+      base/.style={rectangle,draw,thick,inner sep=0pt,font=\small},
+      chap/.style={base,minimum width=20mm,minimum height=10mm}
+    ]
+
+    \node(c1) [chap] {1.介绍};
+  \end{tikzpicture}
+  \caption{The high-level organization of the book. An arrow from one chapter to
+    another indicates that the former chapter is prerequisite material for
+    understanding the latter\label{book_organization}}
+\end{figure}
+
+我们假设所有的读者都来自计算机科学背景。
 
 \section{深度学习的历史趋势}
 
