@@ -188,8 +188,8 @@
 并不总是很清晰，并且因为不同的人选择不同的最小元素的集合来构造他们的图形，对一个
 架构的深度来说没有一个唯一正确的值，就像对一个计算机程序的长度来说没有一个唯一正
 确的值。同样关于一个模型需要有多少深度才有资格被评为``深的''也没有一个共识。然
-而，\gls*{dl}能够可靠地被用于研究那些比传统\gls*{ml}涉及到由更多通过学习获得的功
-能或概念构成的模型。
+而，\gls*{dl}能够可靠地被用于模型~——~那些涉及到比传统\gls*{ml}所做的更多通过学习
+获得的功能或概念构成的模型~——~研究。
 
 总结来说，\gls*{dl}，这本书的主题，是一种 AI 方法。特别地，它是一种\gls*{ml}类型，
 一种允许计算机系统随着经验和数据改进的技术。按照本书的作者们，\gls*{ml}是构建能够
@@ -219,12 +219,12 @@
 \section{谁应该读这本书？}
 \label{sec:who_should_read_this_book}
 
-这本书对各种读者都会有用，但我们心怀两个主要的受众来写它。一个目标受众是正在学习
-\gls*{ml}的大学学生（本科生或研究生），包括那些开启职业生涯于\gls*{dl}和
-\gls*{ai}研究的学生。另一个目标受众是没有\gls*{ml}或统计背景的软件工程师，但是想
-要快速获得并在他们的产品或平台上开始使用\gls*{dl}。\gls*{dl}已经被证明在许多软件
-学科中是有用的，包括计算机视觉、语音处理、自然语言处理、机器人学、生物信息学和化
-学、视频游戏、搜索引擎、在线广告和金融。
+这本书对各种读者都会有用，但我们心怀两个主要的受众来写它。一个目标受众是正在学
+习\gls*{ml}的大学学生（本科生或研究生），包括那些开启职业生涯
+于\gls*{dl}和\gls*{ai}研究的学生。另一个目标受众是没有\gls*{ml}或统计背景的软件工
+程师，但是想要快速获得并在他们的产品或平台上开始使用\gls*{dl}。\gls*{dl}已经被证
+明在许多软件学科中是有用的，包括计算机视觉、语音处理、自然语言处理、机器人学、生
+物信息学和化学、视频游戏、搜索引擎、在线广告和金融。
 
 这本书被组织为三个部分，以便适应于各种读者。第\hyperref[part_basics]{一}部分介绍
 基础的数学工具和\gls*{ml}概念。第\hyperref[part_practical]{二}部分描述大部分已经
@@ -232,29 +232,145 @@
 分描述更多推测性的概念，它们被广泛认为在未来的\gls*{dl}中是重要的。
 
 读者可以按照他们的兴趣和背景随意跳过那些不相关的部分。例如，熟悉线性代数，概率，
-和基本的\gls*{ml}概念的读者可以跳过第\hyperref[part_basics]{一}部分，而只想实现
-一个可工作的系统的读者不需要阅读第\hyperref[part_practical]{二}部分之外的内容。
-为了帮助选择哪些章节阅读，图 1.6 提供了一个流程图，显示了该书的高层次组织。
+和基本的\gls*{ml}概念的读者可以跳过第\hyperref[part_basics]{一}部分，而只想实现一
+个可工作系统的读者不需要阅读第\hyperref[part_practical]{二}部分之后的内容。为了帮
+助选择哪些章节阅读，图~\ref{fig:book_organization} 提供了一个流程图，显示了该书的
+高层次组织。
 
 \begin{figure}[h]
   \centering
   \begin{tikzpicture}[
-      base/.style={rectangle,draw,thick,inner sep=0pt,font=\small},
-      chap/.style={base,minimum width=20mm,minimum height=10mm}
-    ]
-
-    \node(c1) [chap] {1.介绍};
+    base/.style={rectangle,draw,thick,inner sep=5pt,font=\small},
+    chap/.style={base,minimum width=30mm,minimum height=12mm},
+    chapsm/.style={base,minimum width=16mm,minimum height=12mm},
+    part1/.style={base,minimum width=10cm,minimum height=4.5cm},
+    part2/.style={base,minimum width=14cm,minimum height=7.5cm},
+    part3/.style={base,minimum width=14cm,minimum height=8.5cm}]
+    
+    \node(c1) [chap] {\hyperref[ch:intro]{1.介绍}};
+    
+    \node(p1box) [part1,below=0.5 of c1] {};
+    \node(p1) [below=2mm] at (p1box.north) {
+      \hyperref[part_basics]{第一部分：应用于本书的数学和机器学习基础}
+    };
+    \draw[thick,-{Latex[]}] (c1) to (p1box);
+    
+    \node(c2) [chap,below=1.6cm of c1,xshift=-2.4cm] {
+      \hyperref[ch:linear_algebra]{2.线性代数}
+    };
+    \node(c3) [chap,below=1.6cm of c1,xshift=2.4cm] {
+      \hyperref[ch:prob]{
+        \begin{tabular}{l}
+          3.概率论\\
+          与信息论\\
+        \end{tabular}
+      }
+    };
+    \node(c4) [chap,below=0.5 of c2] {
+      \hyperref[ch:numerical]{4.数值计算}
+    };
+    \node(c5) [chap,below=0.5 of c3] {
+      \hyperref[ch:ml]{5.机器学习基础}
+    };
+    \draw[thick,-{Latex[]}] (c2) to (c3);
+    \draw[thick,-{Latex[]}] (c2) to (c4);
+    \draw[thick,-{Latex[]}] (c3) to (c5);
+    \draw[thick,-{Latex[]}] (c4) to (c5);
+    
+    \node(p2box) [part2,below=0.5 of p1box] {};
+    \draw[thick,-{Latex[]}] (p1box) to (p2box);
+    
+    \node(p2) [below=2mm] at (p2box.north) {
+      \hyperref[part_practical]{第二部分：深度网络：现代实践}
+    };
+    \node(c6) [chap,below=2mm of p2] {
+      \hyperref[ch:mlp]{6.深度前驱网络}
+    };
+    \node(c7) [chap,below=of c6,xshift=-5cm] {
+      \hyperref[ch:regularization]{7.规范化}
+    };
+    \node(c8) [chap,below=of c6,xshift=-1cm] {
+      \hyperref[ch:optimization]{8.优化}
+    };
+    \node(c9) [chapsm,below=of c6,xshift=3cm] {
+      \hyperref[ch:convnets]{9. CNNs}
+    };
+    \node(c10) [chapsm,below=of c6,xshift=5.6cm] {
+      \hyperref[ch:rnn]{10. RNNs}
+    };
+    \node(c11) [chap,above=5mm,xshift=-2cm] at (p2box.south) {
+      \hyperref[ch:guidelines]{11.实践方法论}
+    };
+    \node(c12) [chap,above=5mm,xshift=2cm] at (p2box.south) {
+      \hyperref[ch:applications]{12.应用}
+    };
+    
+    \draw[thick,-{Latex[]}] (c6) to (c7);
+    \draw[thick,-{Latex[]}] (c6) to (c8);
+    \draw[thick,-{Latex[]}] (c6) to (c9);
+    \draw[thick,-{Latex[]}] (c6) to (c10.north west);
+    
+    \foreach \x in {7,...,10} {
+      \draw[thick,-{Latex[]}] (c\x) to (c11);
+      \draw[thick,-{Latex[]}] (c\x) to (c12);
+    };    
+    
+    \node(p3box) [part3,below=0.5 of p2box] {};
+    \draw[thick,-{Latex[]}] (p2box) to (p3box);
+    
+    \node(p3) [below=2mm] at (p3box.north) {
+      \hyperref[part_research]{第三部分：深度学习研究}
+    };
+    \node(c14) [chap,below=2mm of p3] {
+      \hyperref[ch:autoencoders]{14. \gls*{autoencoder}}
+    };
+    \node(c13) [chap,left=1.5 of c14] {
+      \hyperref[ch:linear_factors]{13. 线性因子模型}
+    };
+    \node(c15) [chap,right=1.5 of c14] {
+      \hyperref[ch:representation]{15. \gls*{rep-learning}}
+    };
+    \node(c16) [chap,below=0.5 of c13] {
+      \hyperref[ch:graphical_models]{
+        \begin{tabular}{l}
+          16.结构化\\
+          概率模型\\
+        \end{tabular}
+      }
+    };
+    \node(c19) [chap,below=0.5 of c16] {
+      \hyperref[ch:inference]{19.推断}
+    };
+    \node(c17) [chap,below=0.5 of c15] {
+      \hyperref[ch:monte_carlo]{17.蒙特卡洛法}
+    };
+    \node(c18) [chap,below=0.5 of c17] {
+      \hyperref[ch:partition]{18.配分函数}
+    };
+    \node(c20) [chap,above=5mm] at (p3box.south) {
+      \hyperref[ch:generative_models]{20.深度生成式模型}
+    };
+    
+    \draw[thick,-{Latex[]}] (c13) to (c14);
+    \draw[thick,-{Latex[]}] (c14) to (c15);
+    \draw[thick,-{Latex[]}] (c13) to (c16);
+    \draw[thick,-{Latex[]}] (c16) to (c17);
+    \draw[thick,-{Latex[]}] (c16) to (c19);
+    \draw[thick,-{Latex[]}] (c17) to (c18);
+    \draw[thick,-{Latex[]}] (c14) to (c20);
+    \draw[thick,-{Latex[]}] (c19) to (c20);
+    \draw[thick,-{Latex[]}] (c18) to (c20);
+    
   \end{tikzpicture}
-  \caption{The high-level organization of the book. An arrow from one chapter to
-    another indicates that the former chapter is prerequisite material for
-    understanding the latter\label{book_organization}}
+  \caption{本书高层次的组织。从一章到另一章的箭头表示前一章是理解后一章的先决条
+    件。\label{fig:book_organization}}
 \end{figure}
 
-我们假设所有的读者都来自计算机科学背景。
+我们假设所有的读者都有计算机科学背景，熟悉编程，对运算性能问题、复杂度理论、入门
+的微积分知识和一些图论的术语有基本的理解。
 
 \section{深度学习的历史趋势}
-
-
+\label{sec:historical_trends_in_deep_learning}
 
 \subsection{不断增长的模型规模}
 \label{subsec:increasing_model_sizes}
