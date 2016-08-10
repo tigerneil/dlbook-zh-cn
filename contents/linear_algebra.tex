@@ -20,19 +20,19 @@
 
 \begin{itemize}
 \item \emph{\gls{scalars}}：一个\gls*{scalar}仅仅是一个单独的数字，相反，大多数其
-  它线性代数的研究对象通常是多个数字排列。我们用斜体来写\gls*{scalar}。我们通常用
-  小写命名\gls*{scalar}。当我们介绍它们时，我们指定它们是什么样的数字。例如：当定
-  义一个实数值的\gls*{scalar}时，我们可能说``设 $s \in \mathbb{R}$ 为直线的斜率''，
-  或者，当定义一个自然数\gls*{scalar}时，``设 $n \in \mathbb{N}$ 为单元的个数''。
-\item \emph{\gls{vectors}}：一个\gls*{vector}是数字的一种排列。这些数字按照顺序排
-  列。我们可以通过这一顺序中的索引来确定每一个单独的数字。通常我们以小写的粗体字
-  体给\gls*{vector}命名，例如 $\pmb{x}$。\gls*{vector}的元素以伴有下标的斜体字体
-  表示。$\pmb{x}$ 的第一个元素是
-  $x_1$，第二个是$x_2$，依此类推。我们还要说明\gls*{vector}中存储的是什么类型的数
-  字。如果每个元素是 $\mathbb{R}$ 中的数，而\gls*{vector}有 $n$ 个元素，那
-  么\gls*{vector}位于以 $\mathbb{R}$ 的 $n$ 次笛卡尔积的所形成的集合内，表示
-  为$\mathbb{R}^n$。当我们需要显示地表示一个\gls*{vector}中的元素，我们把它们写成
-  方括号围起来的一列：
+  它线性代数的研究对象通常是多个数组。我们用斜体来写\gls*{scalar}。我们通常用小写
+  命名\gls*{scalar}。当我们介绍它们时，我们指定它们是什么样的数字。例如：当定义一
+  个实数值的\gls*{scalar}时，我们可能说``设 $s \in \mathbb{R}$ 为直线的斜率''，或
+  者，当定义一个自然数\gls*{scalar}时，``设 $n \in \mathbb{N}$ 为单元的个数''。
+\item \emph{\gls{vectors}}：一个\gls*{vector}是一个数组。这些数字按照顺序排列。我
+  们可以通过这一顺序中的索引来确定每一个单独的数字。通常我们以小写的粗体字体
+  给\gls*{vector}命名，例如 $\pmb{x}$。\gls*{vector}的元素以伴有下标的斜体字体表
+  示。$\pmb{x}$
+  的第一个元素是$x_1$，第二个是$x_2$，依此类推。我们还要说明\gls*{vector}中存储的
+  是什么类型的数字。如果每个元素是 $\mathbb{R}$ 中的数，而\gls*{vector}有 $n$ 个
+  元素，那么\gls*{vector}位于以 $\mathbb{R}$ 的 $n$ 次笛卡尔积的所形成的集合内，
+  表示为$\mathbb{R}^n$。当我们需要显式地表示一个\gls*{vector}中的元素，我们把它们
+  写成方括号围起来的一列：
   \begin{equation}
     x = \begin{bmatrix}x_1\\ x_2\\ \vdots\\ x_n\end{bmatrix}
     \label{eq:vector_example}
@@ -83,6 +83,123 @@
     像\label{fig:transpose_of_matrix}}
 \end{figure}
 
-\section{矩阵和向量的乘法法则}
+\gls*{vectors}可以被看做是只含有一列的\gls*{matrix}。如此一
+个\gls*{vector}的\gls*{transpose}就是一个只有一行的\gls*{matrix}。有时候这样定义
+一个\gls*{vector}：在一行的\gls*{matrix}的文本区中写出它的元素，然后使用一
+个\gls*{transpose}操作来把它转换成标准的列\gls*{vector}，例如，$\pmb{x} = [x_1,
+x_2, x_3]^{\top}$。
+
+一个\gls*{scalar}可以被看做是只有一个元素的\gls*{matrix}。因此，我们可以看到一
+个\gls*{scalar}就是它自己的\gls*{transpose}：$a = a^{\top}$。
+
+只要\gls*{matrices}有相同的形状，我们可以把它们相互相加，只需要将它们对应的元素相
+加：$\pmb{C} = \pmb{A} + \pmb{B}$，这里 $C_{i,j} = A_{i,j} + B_{i,j}$。
+
+我们也可以把一个\gls*{scalar}加到一个\gls*{matrix}上，或者用一个\gls*{scalar}乘以
+一个\gls*{matrix}，只需要在\gls*{matrix}上执行操作：$\pmb{D} = a \cdot \pmb{B} +
+c$，这里 $D_{i,j} = a \cdot B_{i,j} + c$。
+
+在\gls*{dl}的环境中，我们也使用一些较传统的符号。我们允许\gls*{matrix}和一
+个\gls*{vector}相加，产生另一个\gls*{matrix}：$\pmb{C} = \pmb{A} + \pmb{b}$，这
+里 $C_{i,j} = A_{i,j} + b_j$。换句话说，\gls*{vector} $\pmb{b}$ 被加
+到\gls*{matrix}的每一行。这个速记法消除了需要在相加前定义一个复制 $\pmb{b}$ 到每
+一行的\gls*{matrix}。这个 $\pmb{b}$ 到多个位置的隐式拷贝被称
+为\emph{\gls{broadcasting}}。
+
+\section{矩阵和向量的乘法}
 \label{sec:multiplying_matrices_and_vectors}
+
+涉及\gls*{matrices}的最重要的操作之一是两个\gls*{matrix}的乘法。\gls*{matrices}
+$\pmb{A}$ 和 $\pmb{B}$ 的\emph{\gls{matrix-product}}\,是另一个\gls*{matrix}
+$\pmb{C}$。为了这种积可定义，$\pmb{A}$ 的列数量必须和 $\pmb{B}$ 的行数相同。如
+果 $\pmb{A}$ 的形状为 $m \times n$，而 $\pmb{B}$ 的形状为 $n \times p$，那
+么 $\pmb{C}$
+的形状为$m \times p$。我们可以把两个或更多\gls*{matrices}放在一起来
+写\gls*{matrix-product}，例如：
+\begin{equation}
+  \pmb{C} = \pmb{A}\pmb{B}
+  \label{eq:matrix_product}
+\end{equation}
+
+乘积操作被定义为：
+\begin{equation}
+  C_{i,j} = \sum_{k}A_{i,k}B_{k,j}
+  \label{eq:product_operation}
+\end{equation}
+
+注意两个\gls*{matrices}的标准乘积\textbf{不}仅仅是一个包含有单独元素乘积
+的\gls*{matrix}。这样的操作是存在的，并被称
+为\emph{\gls{element-product}}\,或者\emph{\gls{hadamard-product}}，表示
+为 $\pmb{A} \odot \pmb{B}$。
+
+两个具有相同维度的\gls*{vectors}
+$\pmb{x}$ 和 $\pmb{y}$ 的\emph{\gls{dot-product}}\,是\gls*{matrix-product}
+$\pmb{x}^{\top}\pmb{y}$。我们可以把\gls*{matrix-product} $\pmb{C} =
+\pmb{A}\pmb{B}$ 看做计
+算 $\pmb{A}$ 的第 $i$ 行和 $\pmb{B}$ 的第 $j$ 列的\gls*{dot-product} $C_{i,j}$。
+
+\gls*{matrix-product}操作有很多有用的特性，使得对\gls*{matrices}的数学分析更方
+便。例如，\gls*{matrix}的乘法是可分配的：
+\begin{equation}
+  \pmb{A}(\pmb{B} + \pmb{C}) = \pmb{A}\pmb{B} + \pmb{A}\pmb{C}
+  \label{eq:distributive_matrix_multiplication}
+\end{equation}
+也可结合：
+\begin{equation}
+  \pmb{A}(\pmb{B}\pmb{C}) = (\pmb{A}\pmb{B})\pmb{C}
+  \label{eq:associative_matrix_multiplication}
+\end{equation}
+不像\gls*{scalar}乘法，\gls*{matrix}乘法是\textbf{不}可交换的（$\pmb{A}\pmb{B} =
+\pmb{B}\pmb{A}$ 的条件并不总是成立）。但是，两个\gls*{vectors}之间
+的\gls*{dot-product}是可交换的：
+\begin{equation}
+  \pmb{x}^{\top}\pmb{y} = \pmb{y}^{\top}\pmb{x}
+  \label{eq:commutative_vector_multiplication}
+\end{equation}
+
+\gls*{matrix-product}的\gls*{transpose}有一个简单的形式：
+\begin{equation}
+  (\pmb{A}\pmb{B})^{\top} = \pmb{B}^{\top}\pmb{A}^{\top}
+  \label{eq:transpose_of_matrix_product}
+\end{equation}
+
+这使我们利用这样一个乘积值为一个标量时，它和自己的\gls*{transpose}相等的事实，来
+证明方程~\ref{eq:commutative_vector_multiplication}：
+\begin{equation}
+  \pmb{x}^{\top}\pmb{y} = (\pmb{x}^{\top}\pmb{y})^{\top} = \pmb{y}^{\top}\pmb{x}
+  \label{eq:demonstrate_commutative_vector_multiplication}
+\end{equation}
+
+由于这本教科书的重点不是线性代数，我们在这里不会试图列出全面
+的\gls*{matrix-product}的有用特性，但读者应该知道有更多。
+
+现在我们知道了足够的线性代数的数学符号来写下一个线性方程的系统：
+\begin{equation}
+  \pmb{A}\pmb{x} = \pmb{b}
+  \label{eq:system_of_linear_equations}
+\end{equation}
+这里 $\pmb{A} \in \mathbb{R}^{m \times
+  n}$是一个已知的\gls*{matrix}，$\pmb{b} \in \mathbb{R}^m$ 是一个已知
+的\gls*{vector}，而 $\pmb{x} \in \mathbb{R}^n$ 是一个我们想要解出的未知变量
+的\gls*{vector}。$\pmb{A}$ 的每一行和 $\pmb{b}$ 的每个元素提供了另一个限制。我们
+可以重写方程~\ref{eq:system_of_linear_equations} 为：
+\begin{align}
+  \pmb{A}_{1,:}\pmb{x} &= b_1\\
+  \pmb{A}_{2,:}\pmb{x} &= b_2\\
+  \ldots \\
+  \pmb{A}_{m,:}\pmb{x} &= b_m
+\end{align}
+
+或者，甚至更明确地：
+\begin{align}
+  \pmb{A}_{1,1}x_1 + \pmb{A}_{1,2}x_2 + \ldots + \pmb{A}_{1,n}x_n = b_1 \\
+  \pmb{A}_{2,1}x_1 + \pmb{A}_{2,2}x_2 + \ldots + \pmb{A}_{2,n}x_n = b_2 \\
+  \ldots & \\
+  \pmb{A}_{m,1}x_1 + \pmb{A}_{m,2}x_2 + \ldots + \pmb{A}_{m,n}x_n = b_m
+\end{align}
+
+\gls*{matrix}--\gls*{vector}乘积的符号提供了这种方程形式的一个更紧凑的表示。
+
+\section{单位矩阵和逆矩阵}
+\label{sec:identity_and_inverse_matrices}
 
