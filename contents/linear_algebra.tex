@@ -203,3 +203,50 @@ $\pmb{x}^{\top}\pmb{y}$。我们可以把\gls*{matrix-product} $\pmb{C} =
 \section{单位矩阵和逆矩阵}
 \label{sec:identity_and_inverse_matrices}
 
+线性代数提供一个强大的工具，被称为\emph{\gls{matrix-inversion}}，允许我们以分析
+的方法解不同值的 $\pmb{A}$ 的方程~\ref{eq:system_of_linear_equations}。
+
+为了描述\gls*{matrix-inversion}，我们首先需要定义一个
+\emph{\gls{identity-matrix}}\,的概念。一个\gls*{identity-matrix}是这样一个矩阵，
+把它乘以任何\gls*{vector}都不会改变\gls*{vector}。我们将保留 $n$ 维
+\gls*{vectors}的\gls*{identity-matrix}表示为 $\pmb{I}_n$。正式地，$\pmb{I}_n \in \mathbb{R}^{n \times n}$，并且
+\begin{equation}
+  \forall \pmb{x} \in \mathbb{R}^n, \pmb{I}_n\pmb{x} = \pmb{x}
+  \label{eq:definition_of_identity_matrix}
+\end{equation}
+
+\gls*{identity-matrix}的结构很简单：所有沿着主对角线的元素是 $1$，同时其它元素是
+$0$。参见图~\ref{fig:identity_matrix} 的示例。
+
+\begin{figure}[h]
+  \centering
+  \includegraphics{identity_matrix}
+  \caption{\gls*{identity-matrix}的示例：这是
+    $\pmb{I}_3$\label{fig:identity_matrix}}
+\end{figure}
+
+$\pmb{A}$ 的\gls*{matrix-inversion}表示为 $\pmb{A}^{-1}$，它被定义为这样的矩阵：
+\begin{equation}
+  \pmb{A}^{-1}\pmb{A} = \pmb{I}_n
+  \label{eq:matrix-inverse}
+\end{equation}
+
+现在我们可以通过以下步骤解方程~\ref{eq:system_of_linear_equations}：
+\begin{align}
+  \pmb{A}\pmb{x} &= \pmb{b} \\
+  \pmb{A}^{-1}\pmb{A}\pmb{x} &= \pmb{A}^{-1}\pmb{b} \\
+  \pmb{I}_n\pmb{x} &= \pmb{A}^{-1}\pmb{b} \\
+  \pmb{x} &= \pmb{A}^{-1}\pmb{b}
+\end{align}
+
+当然，这依赖于可能找到 $\pmb{A}^{-1}$。我们在接下来一节中讨论 $\pmb{A}^{-1}$ 存
+在的条件。
+
+当 $\pmb{A}^{-1}$ 存在时，存在几种不同算法用于在闭合式中找到它。理论上，同样的逆
+矩阵可以被用于多次解不同 $\pmb{b}$ 值的方程。然而，$\pmb{A}^{-1}$ 主要作为一个假
+设的工具使用，实际上不应该被用在大多数软件应用中。由于在一个数字计算机中
+$\pmb{A}^{-1}$ 可以仅由有限精度表示，利用 $\pmb{b}$ 值的算法通常可以取得更精确的
+$\pmb{x}$ 的估算。
+
+\section{线性依赖和跨度}
+\label{sec:linear_dependence_and_span}
