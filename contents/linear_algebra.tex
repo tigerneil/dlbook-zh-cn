@@ -187,7 +187,7 @@ $\pmb{x}^{\top}\pmb{y}$。我们可以把\gls*{matrix-product} $\pmb{C} =
 \begin{align}
   \pmb{A}_{1,1}x_1 + \pmb{A}_{1,2}x_2 + \ldots + \pmb{A}_{1,n}x_n = b_1 \\
   \pmb{A}_{2,1}x_1 + \pmb{A}_{2,2}x_2 + \ldots + \pmb{A}_{2,n}x_n = b_2 \\
-  \ldots & \\
+  \ldots \hspace{7em} \\
   \pmb{A}_{m,1}x_1 + \pmb{A}_{m,2}x_2 + \ldots + \pmb{A}_{m,n}x_n = b_m
 \end{align}
 
@@ -309,19 +309,139 @@ $\pmb{A}$ 的\gls*{matrix-inversion}表示为 $\pmb{A}^{-1}$，它被定义为�
 否则就有多于一个方法来确定每个解的参数。
 
 综合起来，这意味着矩阵必须是\emph{\gls{square}}，即，我们需要 $m = n$ 并且所有的
-列必须是\gls*{linearly-indep}。一个具有\gls*{linearly-dep}列的方矩阵被称
+列必须是\gls*{linearly-indep}。一个具有\gls*{linearly-dep}列的方块矩阵被称
 为\emph{\gls{singular}}。
 
-如果 $\pmb{A}$ 不是矩阵或者是方矩阵但不是\gls*{singular}，仍然可能解这个方程。但
-是我们不能使用\gls*{matrix-inversion}的方法来找出解。
+如果 $\pmb{A}$ 不是矩阵或者是方块矩阵但不是\gls*{singular}，仍然可能解这个方程。
+但是我们不能使用\gls*{matrix-inversion}的方法来找出解。
 
-目前位置我们已经讨论过了在左边乘的逆矩阵。也可能定义一个在右边乘的逆：
+目前为止我们已经讨论过了在左边乘的逆矩阵。也可能定义一个在右边乘的逆：
 \begin{equation}
   \pmb{A}\pmb{A}^{-1} = \pmb{I}
 \end{equation}
 
-对于方矩阵，左边求逆和右边求逆是相同的。
+对于方块矩阵，左边求逆和右边求逆是相同的。
 
-\section{模}
+\section{范数}
 \label{sec:norms}
+
+有时候我们需要测量一个\gls*{vec}的长度。在\gls*{ml}中，我们通常使用一个被称
+为\emph{\gls{norm}}\,的函数测量\gls*{vecs}的长度。正式地，对于
+$p \in \mathbb{R}, p \geq 1$，$L^p$ 的范数由
+\begin{equation}
+  \|\pmb{x}\|_p = \left(\sum_i|x_i|^p\right)^{\frac{1}{p}}
+\end{equation}
+给出。
+
+这些范数，包括 $L^p$ 范数，是将\gls*{vecs}映射为非负值的函数。凭直觉地，一
+个\gls*{vec} $\pmb{x}$ 的范数测量从原点到点 $\pmb{x}$ 的距离。更严格地，一个范数
+是满足以下特性的任意函数 $f$：
+\begin{itemize}
+\item $f(\pmb{x}) = 0 \Rightarrow \pmb{x} = \pmb{0}$
+\item $f(\pmb{x} + \pmb{y}) \leq f(\pmb{x}) + f(\pmb{y})$
+  (\emph{\gls{tri-inequal}}\,)
+\item $\forall \alpha \in \mathbb{R}, f(\alpha \pmb{x}) = |\alpha|f(\pmb{x})$
+\end{itemize}
+
+具有 $p = 2$ 的 $L^2$ 范数被称为\emph{\gls{eu-norm}}。它是从原点到点 $\pmb{x}$ 的
+欧几里德距离。$L^2$ 范数被频繁地使用在\gls*{ml}中以至于它常常被简单表示
+为 $\|\pmb{x}\|$，而忽略其下标 $2$。通常也使用平方 $L^2$ 范数测量一个\gls*{vec}的
+长度，它可以简单地由 $\pmb{x}^{\top}\pmb{x}$ 来计算。
+
+平方 $L^2$ 范数在数学和计算上比 $L^2$ 范数本身更方便。例如，每个平方 $L^2$ 范数对
+于每一个 $\pmb{x}$ 元素的导数，仅依赖于对应的 $\pmb{x}$ 的元素，而所有 $L^2$ 范数
+的导数依赖于整个\gls*{vec}。在许多环境中，平方 $L^2$ 范数可能是不受欢迎的，因为它
+在原点附近缓慢地增长。在几个\gls*{ml}应用中，区分完全为 $0$ 的元素和很小但非 $0$
+的元素是很重要的。在这些情况下，我们转而采用一个在所有位置以相同速率增长，但是在
+数学上保留简单特性的函数：$L^1$ 范数。$L^1$ 范数可以简化为：
+ \begin{equation}
+  \|\pmb{x}\|_1 = \sum_i|x_i|
+\end{equation}
+
+当 $0$ 和 非 $0$ 元素非常重要时，$L^1$ 范数被普遍使用在\gls*{ml}中。每次一
+个 $\pmb{x}$ 元素从 $0$ 移动了 $\epsilon$，$L^1$ 范数增加了 $\epsilon$。
+
+我们有时候通过计算非 $0$ 元素的个数来测量\gls*{vec}的大小。有些作者把这个函数表示
+为``$L^0$''范数，但这是个错误的术语。一个\gls*{vec}中的非 $0$ 元素的个数不是一个
+范数，因为通过 $\alpha$ 来调整\gls*{vec}不改变非 $0$ 元素的个数。$L^1$ 模常常被用
+作非 $0$ 元素个数的代替者。
+
+另一个在\gls*{ml}中普遍出现的范数是
+$L^{\infty}$，也被称为\emph{\gls{max-norm}}。这个范数简化为\gls*{vec}中最大幅度元
+素的绝对值，
+\begin{equation}
+  \|\pmb{x}\|_{\infty} = \max_i|x_i|
+\end{equation}
+
+有时候我们也想要测量矩阵的大小。在\gls*{dl}的环境中，最普遍的方式是以不同的、费解
+的\emph{\gls{fr-norm}}
+\begin{equation}
+  \|A\|_F = \sqrt{\sum_{i,j}A_{i,j}^2}
+\end{equation}
+它类似于一个\gls*{vec}的 $L^2$ 范数。
+
+两个\gls*{vecs}的点乘可以重写为范数的形式。具体来说，
+\begin{equation}
+  \pmb{x}^{\top}\pmb{y} = \|\pmb{x}\|_2\|\pmb{y}\|_2\cos \theta
+\end{equation}
+其中 $\theta$ 是 $\pmb{x}$ 和 $\pmb{y}$ 之间的夹角。
+
+\section{特殊类型的矩阵和向量}
+\label{sec:special_kinds_of_matrices_and_vectors}
+
+一些特别有用的特殊类型的矩阵和\gls*{vecs}。
+
+\emph{\gls{diag}}\,矩阵大部分由 $0$ 组成，仅仅沿着主对角线有非 $0$ 元素。正式地，
+一个矩阵 $\pmb{D}$ 当且仅当对所有 $i \neq j$ 的 $D_{i,j} = 0$ 时是对角线的。我们
+已经见过了一个对角矩阵的例子：单位矩阵，其中所有的对角线元素为 $1$。我们写
+成 $\mathrm{diag}(\pmb{v})$ 来表示一个方块对角矩阵，其中对角线元素由\gls*{vec}
+$\pmb{v}$ 的元素给出。对角矩阵在某种程度上让人感兴趣是因为被一个对角矩阵相乘，在
+计算上是非常有效率的。计算 $\mathrm{diag}(\pmb{v})\,\pmb{x}$，我们只需要用 $v_i$
+来调整每个元素
+$x_i$。换句话说，$\mathrm{diag}(\pmb{v})\,\pmb{x} = \pmb{v} \odot \pmb{x}$。对一
+个方块对角矩阵求逆也同样高效。仅当每个对角线元素为非 $0$ 时矩阵的逆存在，在这种情
+况下，$\mathrm{diag}(\pmb{v})^{-1} = \mathrm{diag}([1/v_1, \ldots,
+1/v_n]^{\top})$。在许多情况下，我们可能会得到一些非常一般的以任意矩阵形式
+的\gls*{ml}算法，但通过限制一些矩阵为对角矩阵可获得一个代价更低的（和更少描述性的）
+算法。
+
+不是所有的对角矩阵需要是方块型的。构建一个矩形的对角矩阵是可能的。非方块对角矩阵
+没有逆，但是它仍然可能被它们以较低的代价相乘。对于一个非方块对角矩阵 $\pmb{D}$，
+乘积 $\pmb{D}\pmb{x}$ 会涉及到调整 $\pmb{x}$ 的每个元素，并且，如果 $\pmb{D}$ 的
+高度比宽度大则往结果中连接一些 $0$，或者当 $\pmb{D}$ 的宽度大于高度时则舍
+弃\gls*{vec}的最后一些元素。
+
+一个\emph{\gls{symmetric}}\,矩阵常常出现在其中的元素由一些有两个参数的函数生成的
+时候，其元素不依赖于这两个参数的顺序。例如，如果 $\pmb{A}$ 是一个距离测量的矩
+阵，$\pmb{A}_{i,j}$ 给出了从点 $i$ 到点 $j$ 的距离，那么因为距离函数是对称
+的，$\pmb{A}_{i,j} = \pmb{A}_{j,i}$。
+
+一个\emph{\gls{unit-vec}}\,是一个具有\emph{\gls{unit-norm}}\,的\gls*{vec}：
+\begin{equation}
+  \|\pmb{x}\|_2 = 1
+\end{equation}
+
+一个\gls*{vec} $\pmb{x}$ 和一个 \gls*{vec} $\pmb{y}$，如
+果 $\pmb{x}^{\top}\pmb{y} = 0$，那么它们是相互\emph{\gls{ortho}}。如果两
+个\gls*{vecs}都有非 $0$ \gls*{norm}，这意味着它们以 $90^{\circ}$ 角相互垂直。
+在 $\mathbb{R}^n$ 中，最多有 $n$ 个具有非 $0$ \gls*{norm}的\gls*{vecs}可以相互正
+交。如果\gls*{vecs}不仅是正交的，还有\gls*{unit-norm}，那么我们称它们
+是\emph{\gls{orthonormal}}。
+
+一个\emph{\gls{orthonormal-matrix}}\,是一个方块矩阵，其各行是相
+互\gls*{orthonormal}，而各列也是相互\gls*{orthonormal}：
+\begin{equation}
+  \pmb{A}^{\top}\pmb{A} = \pmb{A}\pmb{A}^{\top} = \pmb{I}
+\end{equation}
+
+这表示
+\begin{equation}
+  \pmb{A}^{-1} = \pmb{A}^{\top}
+\end{equation}
+所以正交矩阵有趣在它们的逆可以以很低的代价来计算。认真注意正交矩阵的定义。相反，
+它们的行不仅仅是正交的，而且是完全标准正交的。没有一个特殊的术语来定义一个行或列
+正交但不是标准正交的矩阵。
+
+\section{特征分解}
+\label{sec:eigendecomposition}
 
