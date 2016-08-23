@@ -187,7 +187,7 @@ $\pmb{x}^{\top}\pmb{y}$。我们可以把\gls*{matrix-product} $\pmb{C} =
 \begin{align}
   \pmb{A}_{1,1}x_1 + \pmb{A}_{1,2}x_2 + \ldots + \pmb{A}_{1,n}x_n = b_1 \\
   \pmb{A}_{2,1}x_1 + \pmb{A}_{2,2}x_2 + \ldots + \pmb{A}_{2,n}x_n = b_2 \\
-  \ldots & \\
+  \ldots \hspace{7em} \\
   \pmb{A}_{m,1}x_1 + \pmb{A}_{m,2}x_2 + \ldots + \pmb{A}_{m,n}x_n = b_m
 \end{align}
 
@@ -309,18 +309,18 @@ $\pmb{A}$ 的\gls*{matrix-inversion}表示为 $\pmb{A}^{-1}$，它被定义为�
 否则就有多于一个方法来确定每个解的参数。
 
 综合起来，这意味着矩阵必须是\emph{\gls{square}}，即，我们需要 $m = n$ 并且所有的
-列必须是\gls*{linearly-indep}。一个具有\gls*{linearly-dep}列的方矩阵被称
+列必须是\gls*{linearly-indep}。一个具有\gls*{linearly-dep}列的方块矩阵被称
 为\emph{\gls{singular}}。
 
-如果 $\pmb{A}$ 不是矩阵或者是方矩阵但不是\gls*{singular}，仍然可能解这个方程。但
-是我们不能使用\gls*{matrix-inversion}的方法来找出解。
+如果 $\pmb{A}$ 不是矩阵或者是方块矩阵但不是\gls*{singular}，仍然可能解这个方程。
+但是我们不能使用\gls*{matrix-inversion}的方法来找出解。
 
 目前为止我们已经讨论过了在左边乘的逆矩阵。也可能定义一个在右边乘的逆：
 \begin{equation}
   \pmb{A}\pmb{A}^{-1} = \pmb{I}
 \end{equation}
 
-对于方矩阵，左边求逆和右边求逆是相同的。
+对于方块矩阵，左边求逆和右边求逆是相同的。
 
 \section{范数}
 \label{sec:norms}
@@ -389,4 +389,59 @@ $L^{\infty}$，也被称为\emph{\gls{max-norm}}。这个范数简化为\gls*{ve
 \section{特殊类型的矩阵和向量}
 \label{sec:special_kinds_of_matrices_and_vectors}
 
+一些特别有用的特殊类型的矩阵和\gls*{vecs}。
+
+\emph{\gls{diag}}\,矩阵大部分由 $0$ 组成，仅仅沿着主对角线有非 $0$ 元素。正式地，
+一个矩阵 $\pmb{D}$ 当且仅当对所有 $i \neq j$ 的 $D_{i,j} = 0$ 时是对角线的。我们
+已经见过了一个对角矩阵的例子：单位矩阵，其中所有的对角线元素为 $1$。我们写
+成 $\mathrm{diag}(\pmb{v})$ 来表示一个方块对角矩阵，其中对角线元素由\gls*{vec}
+$\pmb{v}$ 的元素给出。对角矩阵在某种程度上让人感兴趣是因为被一个对角矩阵相乘，在
+计算上是非常有效率的。计算 $\mathrm{diag}(\pmb{v})\,\pmb{x}$，我们只需要用 $v_i$
+来调整每个元素
+$x_i$。换句话说，$\mathrm{diag}(\pmb{v})\,\pmb{x} = \pmb{v} \odot \pmb{x}$。对一
+个方块对角矩阵求逆也同样高效。仅当每个对角线元素为非 $0$ 时矩阵的逆存在，在这种情
+况下，$\mathrm{diag}(\pmb{v})^{-1} = \mathrm{diag}([1/v_1, \ldots,
+1/v_n]^{\top})$。在许多情况下，我们可能会得到一些非常一般的以任意矩阵形式
+的\gls*{ml}算法，但通过限制一些矩阵为对角矩阵可获得一个代价更低的（和更少描述性的）
+算法。
+
+不是所有的对角矩阵需要是方块型的。构建一个矩形的对角矩阵是可能的。非方块对角矩阵
+没有逆，但是它仍然可能被它们以较低的代价相乘。对于一个非方块对角矩阵 $\pmb{D}$，
+乘积 $\pmb{D}\pmb{x}$ 会涉及到调整 $\pmb{x}$ 的每个元素，并且，如果 $\pmb{D}$ 的
+高度比宽度大则往结果中连接一些 $0$，或者当 $\pmb{D}$ 的宽度大于高度时则舍
+弃\gls*{vec}的最后一些元素。
+
+一个\emph{\gls{symmetric}}\,矩阵常常出现在其中的元素由一些有两个参数的函数生成的
+时候，其元素不依赖于这两个参数的顺序。例如，如果 $\pmb{A}$ 是一个距离测量的矩
+阵，$\pmb{A}_{i,j}$ 给出了从点 $i$ 到点 $j$ 的距离，那么因为距离函数是对称
+的，$\pmb{A}_{i,j} = \pmb{A}_{j,i}$。
+
+一个\emph{\gls{unit-vec}}\,是一个具有\emph{\gls{unit-norm}}\,的\gls*{vec}：
+\begin{equation}
+  \|\pmb{x}\|_2 = 1
+\end{equation}
+
+一个\gls*{vec} $\pmb{x}$ 和一个 \gls*{vec} $\pmb{y}$，如
+果 $\pmb{x}^{\top}\pmb{y} = 0$，那么它们是相互\emph{\gls{ortho}}。如果两
+个\gls*{vecs}都有非 $0$ \gls*{norm}，这意味着它们以 $90^{\circ}$ 角相互垂直。
+在 $\mathbb{R}^n$ 中，最多有 $n$ 个具有非 $0$ \gls*{norm}的\gls*{vecs}可以相互正
+交。如果\gls*{vecs}不仅是正交的，还有\gls*{unit-norm}，那么我们称它们
+是\emph{\gls{orthonormal}}。
+
+一个\emph{\gls{orthonormal-matrix}}\,是一个方块矩阵，其各行是相
+互\gls*{orthonormal}，而各列也是相互\gls*{orthonormal}：
+\begin{equation}
+  \pmb{A}^{\top}\pmb{A} = \pmb{A}\pmb{A}^{\top} = \pmb{I}
+\end{equation}
+
+这表示
+\begin{equation}
+  \pmb{A}^{-1} = \pmb{A}^{\top}
+\end{equation}
+所以正交矩阵有趣在它们的逆可以以很低的代价来计算。认真注意正交矩阵的定义。相反，
+它们的行不仅仅是正交的，而且是完全标准正交的。没有一个特殊的术语来定义一个行或列
+正交但不是标准正交的矩阵。
+
+\section{特征分解}
+\label{sec:eigendecomposition}
 
