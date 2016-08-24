@@ -445,3 +445,70 @@ $x_i$。换句话说，$\mathrm{diag}(\pmb{v})\,\pmb{x} = \pmb{v} \odot \pmb{x}$
 \section{特征分解}
 \label{sec:eigendecomposition}
 
+通过把整体分解成多个组成部分，或者找到一些具有普遍性的特性而不是我们选择来表示的
+方式，许多数学对象能够被更好理解。
+
+例如，整数能够被分解成素数因子。我们表示数字 $12$ 的方式会随着我们以十进制或者二
+进制的方式而改变，但总会是 $12 = 2 \times 2 \times 3$。从这样的表示我们可以最终得
+到有用的特性，诸如 $12$ 不能被 $5$ 除，或者任意乘以 $12$ 后能被 $3$ 除。
+
+正如我们通过把一个整数分解为素数因子来发现某些整数的真实性质，我们也能以显示关于
+矩阵的功能特性的方式~——~这些特性从一个元素数组的表示中并不明显~——~分解它们。
+
+一个最广泛使用的矩阵分解被称为\emph{\gls{eigen-decompos}}，使用它我们把一个矩阵分
+解为一系列特征向量和特征值的集合。
+
+一个方块矩阵 $\pmb{A}$ 的\emph{\gls{eigen-vec}}\,是这样一个非 $0$ 向量 $\pmb{v}$，
+它被 $\pmb{A}$ 乘后仅仅改变了 $\pmb{v}$ 的缩放：
+\begin{equation}
+  \pmb{A}\pmb{v} = \lambda\pmb{v}
+\end{equation}
+缩放因子 $\lambda$ 被称为相对于这个\gls*{eigen-vec}的\emph{\gls{eigen-val}}。（也
+可以找到一个\emph{\gls{left-eigen-vec}}，这样
+$\pmb{v}^{\top}\pmb{A} = \lambda\pmb{v}^{\top}$，但是我们通常关注的是
+右\gls*{eigen-vec}）。
+
+如果 $\pmb{v}$ 是 $\pmb{A}$ 的一个\gls*{eigen-vec}，那么对于 $s \in \mathbb{R},
+s \neq 0$ 的任意缩放的\gls*{vec} $s\pmb{v}$，$s\pmb{v}$ 也是如此。此
+外，$s\pmb{v}$ 仍然有相同的\gls*{eigen-val}。因为这个原因，我们通常只找单
+位\gls*{eigen-vecs}。
+
+假设矩阵 $\pmb{A}$ 有 $n$
+个线性不相关的\gls*{eigen-vecs}，$\{\pmb{v}^{(1)}, \ldots, \pmb{v}^{(n)}\}$，并有
+相应的\gls*{eigen-vals}
+$\{\lambda_1, \ldots, \lambda_n\}$。我们可以把所有\gls*{eigen-vecs}串联起来形成一
+个每列有一个\gls*{eigen-vec}的矩阵
+$\pmb{V}$：$\pmb{V} = [\pmb{v}^{(1)}, \ldots, \pmb{v}^{(n)}]$。同样地，我们能够
+把\gls*{eigen-vals}串联起来形成一个\gls*{vec}
+$\pmb{\lambda} = [\lambda_1, \ldots, \lambda_n]^{\top}$。那么 $\pmb{A}$ 的特征分
+解就由
+\begin{equation}
+  \pmb{A} = \pmb{V}\mathrm{diag}(\pmb{\lambda})\pmb{V}^{-1}
+\end{equation}
+给出。
+
+我们已经看到\textbf{构建}具有特定的\gls*{eigen-vals}和\gls*{eigen-vecs}的矩阵允许
+我们在期望的方向上伸展空间。然而，我们往往想要把矩阵\textbf{分解}为他们
+的\gls*{eigen-vals}和\gls*{eigen-vecs}。这样做可以帮助我们分析矩阵的某些属性，就
+像把一个整数分解成它的素数因子，可以帮助我们了解该整数的行为。
+
+不是每个矩阵能够被分解为\gls*{eigen-vals}和\gls*{eigen-vecs}。在某些情况下，存在
+这样的分解，但可能涉及到复数而不是实数。幸运地，在这本书中，我们通常只需要分解一
+些特殊的、有着简单分解的矩阵类别。特别地，只使用实数值
+的\gls*{eigen-vecs}和\gls*{eigen-vals}，每一个实数对称矩阵能够被分解为一个表达
+式：
+\begin{equation}
+  \pmb{A} = \pmb{Q}\pmb{\Lambda}\pmb{Q}^{\top}
+\end{equation}
+其中 $\pmb{Q}$ 是一个由\gls*{eigen-vecs} $\pmb{A}$ 组成的正交矩阵，
+而 $\pmb{\Lambda}$ 是一个对角矩阵。\gls*{eigen-val} $\Lambda_{i,i}$ 与 $\pmb{Q}$
+的第 $i$ 列~——~表示为 $\pmb{Q}_{:,i}$~——~中的\gls*{eigen-vec}相关。由
+于 $\pmb{Q}$ 是一个正交矩阵，我们可以把 $\pmb{A}$ 看做通过 $\pmb{v}^{(i)}$ 方向上
+的 $\lambda_i$ 调整的缩放空间。参见
+图~\ref{fig:effect_of_eigenvectors_and_eigenvalues} 的示例。
+
+\begin{figure}[h]
+  \centering
+  \caption{一个\gls*{eigen-vecs}和\gls*{eigen-vals}影响的示
+    例。\label{fig:effect_of_eigenvectors_and_eigenvalues}}
+\end{figure}
