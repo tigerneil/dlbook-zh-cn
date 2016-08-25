@@ -14,7 +14,7 @@
 解\gls*{dl}不是必须的。
 
 \section{标量、向量、矩阵和张量}
-\label{scalars_vectors_matrices_and_tensors}
+\label{sec:scalars_vectors_matrices_and_tensors}
 
 线性代数的研究涉及到几种数学对象的类型：
 
@@ -509,6 +509,40 @@ $\pmb{\lambda} = [\lambda_1, \ldots, \lambda_n]^{\top}$。那么 $\pmb{A}$ 的�
 
 \begin{figure}[h]
   \centering
-  \caption{一个\gls*{eigen-vecs}和\gls*{eigen-vals}影响的示
-    例。\label{fig:effect_of_eigenvectors_and_eigenvalues}}
+  \includegraphics{eigen_effect}
+  \caption{一个\gls*{eigen-vecs}和\gls*{eigen-vals}影响的示例。这里我们有一个矩
+    阵 $\pmb{A}$，它有两
+    个\gls*{orthonormal}\gls*{eigen-vecs}，有\gls*{eigen-val}
+    $\lambda_1$ 的 $\pmb{v}^{(1)}$ 和有\gls*{eigen-val}
+    $\lambda_2$ 的 $\pmb{v}^{(2)}$。（\textbf{左边}）我们把所有单位\gls*{vecs}
+    $\pmb{u} \in \mathbb{R}^2$ 的集合绘成一个单位圆。（\textbf{右边}）我们绘上了
+    所有点 $\pmb{A}\pmb{u}$ 的集合。通过观察 $\pmb{A}$ 扭曲单位圆的方式，我们能够
+    看到它在 $\pmb{v}^{(i)}$ 方向上被 $\lambda_i$ 缩放了空
+    间。\label{fig:effect_of_eigenvectors_and_eigenvalues}}
 \end{figure}
+
+虽然任何实数对称矩阵 $\pmb{A}$ 可确保有一个特征分解，但它可能不是唯一的。如果有两
+个或两个以上的\gls*{eigen-vecs}共享相同的\gls*{eigen-val}，那么任何一组位于它们生
+成空间的正交\gls*{vecs}也是具有那个\gls*{eigen-val}的\gls*{eigen-vecs}，而我们可
+以等价地用这些\gls*{eigen-vecs}选择一个 $\pmb{Q}$。按照惯例，我们通常以降序排
+序 $\Lambda$ 中的元素。在这种惯例下，只有当所有的\gls*{eigen-vals}是唯一时，特征
+分解是唯一的。
+
+矩阵的特征分解告诉我们很多关于矩阵的有用的事实。当且仅当任
+何\gls*{eigen-vals}是 $0$ 时，矩阵是奇异的。一个实数对称矩阵的特征分解也能够被用
+于以 $\|\pmb{x}\|_2 = 1$ 的条件优化 $f (\pmb{x}) = \pmb{x}^{\top}$ 形式的二次方表
+达式。当 $\pmb{x}$ 等于一个 $\pmb{A}$ 的\gls*{eigen-vec}时，$f$ 的取值是相应
+的\gls*{eigen-val}。$f$ 在约束域内的的最大值是\gls*{eigen-val}的最大值，它在约束
+域内的最小值是\gls*{eigen-val}的最小值。
+
+一个\gls*{eigen-vals}都是正数的矩阵被称为\emph{\gls{positive-definite}}。一
+个\gls*{eigen-vals}都是正数或者 $0$ 的矩阵被称
+为\emph{\gls{positive-semidefinite}}。相同地，如果所有的\gls*{eigen-vals}都是负数，
+那么矩阵是\emph{\gls{negative-definite}}，而如果所有\gls*{eigen-vals}都是负数或
+者 $0$，它是\emph{\gls{negative-semidefinite}}。\gls*{positive-semidefinite}有趣
+在它们确保
+$\forall\pmb{x}, \pmb{x}^{\top}\pmb{A}\pmb{x} \geq 0$。\gls*{positive-definite}另
+外能确保 $\pmb{x}^{\top}\pmb{A}\pmb{x} = 0 \Rightarrow \pmb{x} = 0$.
+
+\section{奇异值分解}
+\label{sec:singular_value_decomposition}
