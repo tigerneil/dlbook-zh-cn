@@ -185,10 +185,10 @@ $\pmb{x}^{\top}\pmb{y}$。我们可以把\gls*{matrix-product} $\pmb{C} =
 
 或者，甚至更明确地：
 \begin{align}
-  \pmb{A}_{1,1}x_1 + \pmb{A}_{1,2}x_2 + \ldots + \pmb{A}_{1,n}x_n = b_1 \\
-  \pmb{A}_{2,1}x_1 + \pmb{A}_{2,2}x_2 + \ldots + \pmb{A}_{2,n}x_n = b_2 \\
-  \ldots \hspace{7em} \\
-  \pmb{A}_{m,1}x_1 + \pmb{A}_{m,2}x_2 + \ldots + \pmb{A}_{m,n}x_n = b_m
+  \pmb{A}_{1,1}x_1 + \pmb{A}_{1,2}x_2 + \ldots + \pmb{A}_{1,n}x_n &= b_1 \\
+  \pmb{A}_{2,1}x_1 + \pmb{A}_{2,2}x_2 + \ldots + \pmb{A}_{2,n}x_n &= b_2 \\
+  \ldots\hspace{5em} \\
+  \pmb{A}_{m,1}x_1 + \pmb{A}_{m,2}x_2 + \ldots + \pmb{A}_{m,n}x_n &= b_m
 \end{align}
 
 矩阵--\gls*{vec}乘积的符号提供了这种方程形式的一个更紧凑的表示。
@@ -546,3 +546,57 @@ $\forall\pmb{x}, \pmb{x}^{\top}\pmb{A}\pmb{x} \geq 0$。\gls*{positive-definite}
 
 \section{奇异值分解}
 \label{sec:singular_value_decomposition}
+
+在~\ref{sec:eigendecomposition} 一节，我们看到了如何将一个矩阵分解
+为\gls*{eigen-vecs} 和\gls*{eigen-vals}。\emph{\gls{svd}}（SVD）提供了另一种分解
+一个矩阵为\emph{\gls{singular-vecs}}\,和\emph{\gls{singular-vals}}\,的方式。SVD
+允许我们去发现一些和特征分解相同类型的信息。然而，SVD 更普遍适用。每一个实数矩阵
+有一个\gls*{singular-val}分解，但\gls*{eigen-val}分解不是。例如，如果一个矩阵不是
+方块的，那么就没有特征分解，相反我们必须使用一个\gls*{singular-val}分解。
+
+回忆一下特征分解涉及到分析一个矩阵 $\pmb{A}$ 来发现一个\gls*{eigen-vecs}的矩
+阵 $\pmb{V}$ 和一个\gls*{eigen-vals}的\gls*{vec} $\pmb{\lambda}$，这样我们可以重
+写 $\pmb{A}$ 为：
+\begin{equation}
+  \pmb{A} = \pmb{V}\mathrm{diag}(\pmb{\lambda})\pmb{V}^{-1}
+\end{equation}
+
+\gls*{singular-val}分解类似，只是这次我们把 $\pmb{A}$ 写为三个矩阵的乘积：
+\begin{equation}
+  \pmb{A} = \pmb{U}\pmb{D}\pmb{V}^{\top}
+\end{equation}
+
+假设 $\pmb{A}$ 是一个 $m \times n$ 的矩阵。那么 $\pmb{U}$ 被定义为一个 $m \times
+n$ 的矩阵，$\pmb{D}$ 是一个 $m \times n$ 的矩阵，$\pmb{V}$ 是一个 $n \times n$ 的
+矩阵。
+
+这些矩阵每个都被定义为具有一个特殊结构。矩阵 $\pmb{U}$ 和 $\pmb{V}$ 都被定义为正
+交矩阵。矩阵 $\pmb{D}$ 被定义为一个对角矩阵。注意 $\pmb{D}$ 不是必须为方块矩阵。
+
+沿着 $\pmb{D}$ 对角线的元素被称为矩
+阵 $\pmb{A}$ 的\emph{\gls{singular-val}}。$\pmb{U}$ 的列被称
+为\emph{\gls{left-singular-vecs}}。$\pmb{V}$ 的列被称
+为\emph{\gls{right-singular-vecs}}。
+
+实际上我们可以以 $\pmb{A}$ 的特征分解的功能方面来解
+释 $\pmb{A}$ 的\gls*{singular-val}分
+解。$\pmb{A}$ 的\gls*{left-singular-vecs}是 $\pmb{A}\pmb{A}^{\top}$ 的
+\gls*{eigen-vecs}。$\pmb{A}$ 的\gls*{right-singular-vecs}是
+$\pmb{A}^{\top}\pmb{A}$ 的\gls*{eigen-vecs}。$\pmb{A}$ 的非 $0$
+\gls*{singular-vals}是 $\pmb{A}^{\top}\pmb{A}$ 的\gls*{eigen-vecs}的平方根。对
+于 $\pmb{A}\pmb{A}^{\top}$ 也一样。
+
+也许 SVD 最有用的功能，是我们能够用它来部分归纳出非方块矩阵的逆矩阵，正如我们在接
+下来一节会看到的。
+
+\section{摩尔--彭若斯广义逆}
+\label{sec:the_moore_penrose_pseudoinverse}
+
+\section{迹算子}
+\label{sec:the_trace_operator}
+
+\section{行列式}
+\label{sec:the_determinant}
+
+\section{示例：主成分分析法}
+\label{sec:example:principal_components_analysis}
