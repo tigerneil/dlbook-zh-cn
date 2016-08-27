@@ -627,10 +627,112 @@ $\pmb{y}$ 的 $\pmb{x}$ 值。
 \section{迹算子}
 \label{sec:the_trace_operator}
 
+迹算子给出了一个矩阵的所有对角线元素的和：
+\begin{equation}
+  \mathrm{Tr}(\pmb{A}) = \sum_i\pmb{A}_{i,i}
+\end{equation}
+
+迹算子之所以有用是有多种原因的。一些不借助求和符号难于具体说明的算子，能够使用矩
+阵乘积和迹算子来说明。例如，迹算子提供了一个写出矩阵的弗罗贝尼乌斯范数的替代方法：
+\begin{equation}
+  \|A\|_F = \sqrt{\mathrm{Tr}(\pmb{A}\pmb{A}^{\top})}
+\end{equation}
+
+以迹算子的形式写一个表达式开辟了利用许多有用特性来处理表达式的机会。例如，迹算子
+作用于转置算子后不变：
+\begin{equation}
+  \mathrm{Tr}(\pmb{A}) = \mathrm{Tr}(\pmb{A}^{\top})
+\end{equation}
+
+由许多因子组成的方块矩阵，如果相应矩阵的形状允许得到的乘积有定义，这个方块矩阵的
+迹，对于将最后的因子移到首位也不变：
+\begin{equation}
+  \mathrm{Tr}(\pmb{A}\pmb{B}\pmb{C}) = \mathrm{Tr}(\pmb{C}\pmb{A}\pmb{B}) =
+  \mathrm{Tr}(\pmb{B}\pmb{C}\pmb{A})
+\end{equation}
+或者更普遍地，
+\begin{equation}
+  \mathrm{Tr}(\prod^n_{i=1}\pmb{F}^{(i)} =
+  \mathrm{Tr}(\pmb{F}^{(n)}\prod^{n-1}_{i=1}\pmb{F}^{(i)})
+\end{equation}
+这个循环排列的不变性即使当得到的乘积有一个不同的形状仍然保持成立。例如，对于
+$\pmb{A} \in \mathbb{R}^{m \times n}$ 和 $\pmb{B} \in \mathbb{R}^{n \times m}$，
+即使 $\pmb{A}\pmb{B} \in \mathbb{R}^{m \times m}$ 和 $\pmb{B}\pmb{A} \in
+\mathbb{R}^{n \times n}$，我们有
+\begin{equation}
+  \mathrm{Tr}(\pmb{A}\pmb{B}) = \mathrm{Tr}(\pmb{B}\pmb{A})
+\end{equation}
+
+另一个要记住的有用的事实是一个标量是它自身的迹：$a = \mathrm{Tr}(a)$。
+
 \section{行列式}
 \label{sec:the_determinant}
 
 一个方块矩阵的行列式，表示为 $\det(\pmb{A})$，是一个将矩阵映射为实数标量的函数。
+行列式等于矩阵的所有\gls*{eigen-vals}的乘积。行列式的绝对值可以被看作是衡量被矩
+阵相乘后扩展或者压缩了多少空间。如果行列式为 $0$，那么空间被完全沿着至少一个维度
+压缩，导致它丢失了所有体积。如果行列式为 $1$，那么变换是保体积的。
 
-\section{示例：主成分分析法}
+\section{示例：主成分分析}
 \label{sec:example:principal_components_analysis}
+
+一个简单的\gls*{ml}算法，\emph{\gls{pca}}\,或者 \emph{PCA}，能够仅仅利用线性代数
+的基本知识来推导。
+
+假设我们在 $\mathbb{R}^n$ 中有一个 $m$ 个点的集合 $\{\pmb{x}^{(1)}, \ldots,
+\pmb{x}^{(m)}\}$。假设我们想要在这些点上应用有损数据压缩。有损数据压缩意味着以一
+个需要更少内存但是可能丢失一些精度的方式存储这些点。我们想要丢失尽可能少的精度。
+
+一种我们能对这些点进行编码的方式是表示它们的一个低维度版本。对每个点
+$\pmb{x}^{(i)} \in \mathbb{R}^n$，我们能找到一个相应的编码向量 $\pmb{c}^{(i)}
+\in \mathbb{R}^l$。如果 $l$ 小于 $n$，它会用比原始数据更少内存用于存储编码的点。
+我们想要找到某个编码函数 $f(\pmb{x}) = \pmb{c}$，它为一个输入生成编码，以及一个
+解码函数，给定它的编码生成再现的输入，$\pmb{x} \approx g(f(\pmb{x}))$。
+
+PCA 是由我们选择的解码函数定义的。更明确地说，要使得解码非常简单，我们选择使用矩
+阵操作来将编码映射回 $\mathbb{R}^n$。让 $g(\pmb{c}) = \pmb{D}\pmb{c}$，其中
+$\pmb{D} \in \mathbb{R}^{n \times l}$ 是定义解码的矩阵。
+
+为这个解码器计算最优的编码可能是一个困难的问题。为了让编码问题保持简单，PCA 将
+$\pmb{D}$ 的列限制为彼此正交。（注意 $\pmb{D}$ 严格地说仍然不是``一个正交矩阵''，
+  除非 $l = n$）
+
+随着目前所描述的问题，有可能有许多解，因为如果我们对所有点按比例减小 $c_i$ 我们
+能够增加 $\pmb{D}_{:,i}$ 的规模。为了给出问题的唯一解，我们限制 $\pmb{D}$ 的所有
+列具有单位\gls*{norm}。
+
+为了将这个基本的思想转化为一个我们能够实现的算法，我们首先需要做的是计算出如何为
+每个输入点 $\pmb{x}$ 产生最优的编码点 $\pmb{c}^*$。一种方法是最小化输入点
+$\pmb{x}$ 和它的复原值 $g(\pmb{c}^*)$ 之间的距离。我们可以用一个\gls*{norm}来衡
+量这个距离。在主成分算法中，我们使用 $L^2$ \gls*{norm}：
+\begin{equation}
+  \pmb{c}^* = \mathop{\arg\min}_{\pmb{c}}\|\pmb{x} - g(\pmb{c})\|_2
+\end{equation}
+
+\begin{equation}
+  \pmb{c}^* = \mathop{\arg\min}_{\pmb{c}}\|\pmb{x} - g(\pmb{c})\|^2_2
+\end{equation}
+
+\begin{equation}
+  (\pmb{x} - g(\pmb{c}))^{\top}(\pmb{x} - g(\pmb{c}))
+\end{equation}
+
+\begin{equation}
+  = \pmb{x}^{\top}\pmb{x} - \pmb{x}^{\top}g(\pmb{c}) - g(\pmb{c})^{\top}\pmb{x}
+  + g(\pmb{c})^{\top}g(\pmb{c})
+\end{equation}
+
+\begin{equation}
+  = \pmb{x}^{\top}\pmb{x} - 2\pmb{x}^{\top}g(\pmb{c}) +
+  g(\pmb{c})^{\top}g(\pmb{c})
+\end{equation}
+
+\begin{equation}
+  \pmb{c}^* = \mathop{\arg\min}_{\pmb{c}} - 2\pmb{x}^{\top}g(\pmb{c}) +
+    g(\pmb{c})^{\top}g(\pmb{c})
+\end{equation}
+
+\begin{equation}
+  \pmb{c}^* = \mathop{\arg\min}_{\pmb{c}}-2\pmb{x}^{\top}\pmb{D}\pmb{c} +
+  \pmb{c}^{\top}\pmb{D}^{\top}\pmb{D}\pmb{c}
+\end{equation}
