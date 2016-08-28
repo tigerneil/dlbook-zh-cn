@@ -176,20 +176,20 @@ $\pmb{x}^{\top}\pmb{y}$。我们可以把\gls*{matrix-product} $\pmb{C} =
 \mathbb{R}^m$ 是一个已知的\gls*{vec}，而 $\pmb{x} \in \mathbb{R}^n$ 是一个我们想
 要解出的未知变量的\gls*{vec}。$\pmb{A}$ 的每一行和 $\pmb{b}$ 的每个元素提供了另一
 个限制。我们可以重写方程~\ref{eq:system_of_linear_equations} 为：
-\begin{align}
-  \pmb{A}_{1,:}\pmb{x} &= b_1\\
-  \pmb{A}_{2,:}\pmb{x} &= b_2\\
+\begin{gather}
+  \pmb{A}_{1,:}\pmb{x} = b_1\\
+  \pmb{A}_{2,:}\pmb{x} = b_2\\
   \ldots \\
-  \pmb{A}_{m,:}\pmb{x} &= b_m
-\end{align}
+  \pmb{A}_{m,:}\pmb{x} = b_m
+\end{gather}
 
 或者，甚至更明确地：
-\begin{align}
-  \pmb{A}_{1,1}x_1 + \pmb{A}_{1,2}x_2 + \ldots + \pmb{A}_{1,n}x_n &= b_1 \\
-  \pmb{A}_{2,1}x_1 + \pmb{A}_{2,2}x_2 + \ldots + \pmb{A}_{2,n}x_n &= b_2 \\
-  \ldots\hspace{5em} \\
-  \pmb{A}_{m,1}x_1 + \pmb{A}_{m,2}x_2 + \ldots + \pmb{A}_{m,n}x_n &= b_m
-\end{align}
+\begin{gather}
+  \pmb{A}_{1,1}x_1 + \pmb{A}_{1,2}x_2 + \ldots + \pmb{A}_{1,n}x_n = b_1\\
+  \pmb{A}_{2,1}x_1 + \pmb{A}_{2,2}x_2 + \ldots + \pmb{A}_{2,n}x_n = b_2\\
+  \ldots\\
+  \pmb{A}_{m,1}x_1 + \pmb{A}_{m,2}x_2 + \ldots + \pmb{A}_{m,n}x_n = b_m
+\end{gather}
 
 矩阵--\gls*{vec}乘积的符号提供了这种方程形式的一个更紧凑的表示。
 
@@ -226,12 +226,12 @@ $\pmb{A}$ 的\gls*{matrix-inversion}表示为 $\pmb{A}^{-1}$，它被定义为�
 \end{equation}
 
 现在我们可以通过以下步骤解方程~\ref{eq:system_of_linear_equations}：
-\begin{align}
-  \pmb{A}\pmb{x} &= \pmb{b} \\
-  \pmb{A}^{-1}\pmb{A}\pmb{x} &= \pmb{A}^{-1}\pmb{b} \\
-  \pmb{I}_n\pmb{x} &= \pmb{A}^{-1}\pmb{b} \\
-  \pmb{x} &= \pmb{A}^{-1}\pmb{b}
-\end{align}
+\begin{gather}
+  \pmb{A}\pmb{x} = \pmb{b}\\
+  \pmb{A}^{-1}\pmb{A}\pmb{x} = \pmb{A}^{-1}\pmb{b}\\
+  \pmb{I}_n\pmb{x} = \pmb{A}^{-1}\pmb{b}\\
+  \pmb{x} = \pmb{A}^{-1}\pmb{b}
+\end{gather}
 
 当然，这依赖于可能找到 $\pmb{A}^{-1}$。我们在接下来一节中讨论 $\pmb{A}^{-1}$ 存在
 的条件。
@@ -330,6 +330,7 @@ $\pmb{A}$ 的\gls*{matrix-inversion}表示为 $\pmb{A}^{-1}$，它被定义为�
 $p \in \mathbb{R}, p \geq 1$，$L^p$ 的范数由
 \begin{equation}
   \|\pmb{x}\|_p = \left(\sum_i|x_i|^p\right)^{\frac{1}{p}}
+  \label{eq:lp_norm}
 \end{equation}
 给出。
 
@@ -687,7 +688,7 @@ $\pmb{A} \in \mathbb{R}^{m \times n}$ 和 $\pmb{B} \in \mathbb{R}^{n \times m}$�
 $\pmb{x}^{(i)} \in \mathbb{R}^n$，我们能找到一个相应的编码向量 $\pmb{c}^{(i)}
 \in \mathbb{R}^l$。如果 $l$ 小于 $n$，它会用比原始数据更少内存用于存储编码的点。
 我们想要找到某个编码函数 $f(\pmb{x}) = \pmb{c}$，它为一个输入生成编码，以及一个
-解码函数，给定它的编码生成再现的输入，$\pmb{x} \approx g(f(\pmb{x}))$。
+解码函数，给定它的编码生成重构的输入，$\pmb{x} \approx g(f(\pmb{x}))$。
 
 PCA 是由我们选择的解码函数定义的。更明确地说，要使得解码非常简单，我们选择使用矩
 阵操作来将编码映射回 $\mathbb{R}^n$。让 $g(\pmb{c}) = \pmb{D}\pmb{c}$，其中
@@ -709,30 +710,168 @@ $\pmb{x}$ 和它的复原值 $g(\pmb{c}^*)$ 之间的距离。我们可以用一
   \pmb{c}^* = \mathop{\arg\min}_{\pmb{c}}\|\pmb{x} - g(\pmb{c})\|_2
 \end{equation}
 
+我们可以换成平方 $L^2$ \gls*{norm}而不是 $L^2$ \gls*{norm}自身，因为它们都被相同
+的 $\pmb{c}$ 值最小化。这是因为 $L^2$ \gls*{norm}是非负的，而平方算子对非负参数
+是单调增加的。
 \begin{equation}
   \pmb{c}^* = \mathop{\arg\min}_{\pmb{c}}\|\pmb{x} - g(\pmb{c})\|^2_2
 \end{equation}
-
+被最小化的函数简化为
 \begin{equation}
   (\pmb{x} - g(\pmb{c}))^{\top}(\pmb{x} - g(\pmb{c}))
 \end{equation}
-
+（由于 $L^2$ \gls*{norm}的定义，方程~\ref{eq:lp_norm}）
 \begin{equation}
   = \pmb{x}^{\top}\pmb{x} - \pmb{x}^{\top}g(\pmb{c}) - g(\pmb{c})^{\top}\pmb{x}
   + g(\pmb{c})^{\top}g(\pmb{c})
 \end{equation}
-
+（由于分配律）
 \begin{equation}
   = \pmb{x}^{\top}\pmb{x} - 2\pmb{x}^{\top}g(\pmb{c}) +
   g(\pmb{c})^{\top}g(\pmb{c})
 \end{equation}
+（因为标量 $g(\pmb{x})^{\top}$ 等于其自身的转置）。
 
+现在我们能再次改变正在被最小化的函数，来忽略第一项，因为这一项不依赖于 $\pmb{c}$：
 \begin{equation}
   \pmb{c}^* = \mathop{\arg\min}_{\pmb{c}} - 2\pmb{x}^{\top}g(\pmb{c}) +
     g(\pmb{c})^{\top}g(\pmb{c})
 \end{equation}
 
-\begin{equation}
+为了更进一步，我们必须代入 $g(\pmb{c})$ 的定义：
+\begin{gather}
   \pmb{c}^* = \mathop{\arg\min}_{\pmb{c}}-2\pmb{x}^{\top}\pmb{D}\pmb{c} +
-  \pmb{c}^{\top}\pmb{D}^{\top}\pmb{D}\pmb{c}
+  \pmb{c}^{\top}\pmb{D}^{\top}\pmb{D}\pmb{c}\\
+  = \mathop{\arg\min}_{\pmb{c}}-2\pmb{x}^{\top}\pmb{D}\pmb{c} +
+  \pmb{c}^{\top}\pmb{I}_l\pmb{c}
+\end{gather}
+
+（由于约束在 $\pmb{D}$ 上的正交性和单位\gls*{norm}）
+\begin{equation}
+  = \mathop{\arg\min}_{\pmb{c}}-2\pmb{x}^{\top}\pmb{D}\pmb{c} +
+  \pmb{c}^{\top}\pmb{c}
 \end{equation}
+
+我们能够使用\gls*{vec}微积分解这个最优化问题（如果你不知道怎么做，参见 4.3 节）：
+\begin{gather}
+  \nabla_{\pmb{c}}(-2\pmb{x}^{\top}\pmb{D}\pmb{c} + \pmb{c}^{\top}\pmb{c}) = 0\\
+  -2\pmb{D}^{\top}\pmb{x} + 2\pmb{c} = 0\\
+  \pmb{c} = \pmb{D}^{\top}\pmb{x}
+\end{gather}
+
+这使得算法更有效率：我们能够仅仅使用一个矩阵--\gls*{vec}算子来最优化地编码
+$\pmb{x}$。要编码一个\gls*{vec}，我们应用编码器函数
+\begin{equation}
+  f(\pmb{x}) = \pmb{D}^{\top}\pmb{x}
+\end{equation}
+利用更进一步的矩阵操作，我们也能够定义 PCA 的重构算子：
+\begin{equation}
+  r(\pmb{x}) = g(f(\pmb{x})) = \pmb{D}\pmb{D}^{\top}\pmb{x}
+  \label{eq:pca_reconstruction_operation}
+\end{equation}
+
+接下来，我们需要选择编码矩阵 $\pmb{D}$。为此，我们回顾下最小化输入和重构的 $L^2$
+距离的想法。然而，既然我们会使用相同的矩阵 $\pmb{D}$ 来解码所有点，我们不能再孤
+立地考虑这些点。相反，我们必须最小化在所有维度和所有点上计算的误差矩阵的弗罗贝尼
+乌斯\gls*{norm}：
+\begin{equation}
+  \pmb{D}^* = \mathop{\arg\min}_{\pmb{D}}\sqrt{\sum_{i,j}(x^{(i)}_j -
+    r(\pmb{x}^{(i)})_j)^2}\quad\text{使}\;\pmb{D}^{\top}\pmb{D} =
+  \pmb{I}_l\;\text{满足}
+  \label{eq:frobenius_norm_of_errors_matrix}
+\end{equation}
+
+为了推导找出 $\pmb{D}^*$ 的算法，我们开始会考虑 $l = 1$ 的情况。在这种情况下，
+$\pmb{D}$ 仅仅是单个\gls*{vec}，$\pmb{d}$。将方
+程~\ref{eq:pca_reconstruction_operation} 代入方
+程~\ref{eq:frobenius_norm_of_errors_matrix} 并将 $\pmb{D}$ 简化为 $\pmb{d}$，这
+个问题缩小为
+\begin{equation}
+  \pmb{d}^* = \mathop{\arg\min}_{\pmb{d}}\sum_i\|\pmb{x}^{(i)} -
+  \pmb{d}\pmb{d}^{\top}\pmb{x}^{(i)}\|^2_2\quad\text{使}\;\|\pmb{d}\|_2 =
+  1\;\text{满足}
+\end{equation}
+
+\begin{equation}
+  \pmb{d}^* = \mathop{\arg\min}_{\pmb{d}}\sum_i\|\pmb{x}^{(i)} -
+  \pmb{d}^{\top}\pmb{x}^{(i)}\pmb{d}\|^2_2\quad\text{使}\;\|\pmb{d}\|_2 =
+  1\;\text{满足}
+\end{equation}
+
+\begin{equation}
+  \pmb{d}^* = \mathop{\arg\min}_{\pmb{d}}\sum_i\|\pmb{x}^{(i)} -
+  \pmb{x}^{(i)\top}\pmb{d}\pmb{d}\|^2_2\quad\text{使}\;\|\pmb{d}\|_2 =
+  1\;\text{满足}
+\end{equation}
+
+\begin{equation}
+  \pmb{d}^* = \mathop{\arg\min}_{\pmb{d}}\sum_i\|\pmb{X} -
+  \pmb{X}\pmb{d}\pmb{d}^{\top}\|^2_F\quad\text{使}\;\pmb{d}^{\top}\pmb{d} =
+  1\;\text{满足}
+\end{equation}
+
+\begin{gather}
+  \mathop{\arg\min}_{\pmb{d}}\|\pmb{X} - \pmb{X}\pmb{d}\pmb{d}^{\top}\|^2_F\\ =
+  \mathop{\arg\min}_{\pmb{d}}\mathrm{Tr}\,\bigg(\Big(\pmb{X} -
+  \pmb{X}\pmb{d}\pmb{d}^{\top}\Big)^{\top}\Big(\pmb{X} -
+  \pmb{X}\pmb{d}\pmb{d}^{\top}\Big)\bigg)
+\end{gather}
+
+（由于方程 2.49）
+\begin{gather}
+  = \mathop{\arg\min}_{\pmb{d}}\mathrm{Tr}(\pmb{X}^{\top}\pmb{X} -
+  \pmb{X}^{\top}\pmb{X}\pmb{d}\pmb{d}^{\top} -
+  \pmb{d}\pmb{d}^{\top}\pmb{X}^{\top}\pmb{X} +
+  \pmb{d}\pmb{d}^{\top}\pmb{X}^{\top}\pmb{X}\pmb{d}\pmb{d}^{\top})\\ =
+  \mathop{\arg\min}_{\pmb{d}}\mathrm{Tr}(\pmb{X}^{\top}\pmb{X}) -
+  \mathrm{Tr}(\pmb{X}^{\top}\pmb{X}\pmb{d}\pmb{d}^{\top}) -
+  \mathrm{Tr}(\pmb{d}\pmb{d}^{\top}\pmb{X}^{\top}\pmb{X}) +
+  \mathrm{Tr}(\pmb{d}\pmb{d}^{\top}\pmb{X}^{\top}\pmb{X}\pmb{d}\pmb{d}^{\top})\\ =
+  \mathop{\arg\min}_{\pmb{d}} -
+  \mathrm{Tr}(\pmb{X}^{\top}\pmb{X}\pmb{d}\pmb{d}^{\top}) -
+  \mathrm{Tr}(\pmb{d}\pmb{d}^{\top}\pmb{X}^{\top}\pmb{X}) +
+  \mathrm{Tr}(\pmb{d}\pmb{d}^{\top}\pmb{X}^{\top}\pmb{X}\pmb{d}\pmb{d}^{\top})
+\end{gather}
+
+（因为不涉及 $\pmb{d}$ 的项不影响 $\arg\min$）
+\begin{equation}
+  = \mathop{\arg\min}_{\pmb{d}} -
+  2\mathrm{Tr}(\pmb{X}^{\top}\pmb{X}\pmb{d}\pmb{d}^{\top}) +
+  \mathrm{Tr}(\pmb{d}\pmb{d}^{\top}\pmb{X}^{\top}\pmb{X}\pmb{d}\pmb{d}^{\top})
+\end{equation}
+
+（）
+\begin{equation}
+  = \mathop{\arg\min}_{\pmb{d}} -
+  2\mathrm{Tr}(\pmb{X}^{\top}\pmb{X}\pmb{d}\pmb{d}^{\top}) +
+  \mathrm{Tr}(\pmb{X}^{\top}\pmb{X}\pmb{d}\pmb{d}^{\top}\pmb{d}\pmb{d}^{\top})
+\end{equation}
+
+（）
+
+\begin{gather}
+  \mathop{\arg\min}_{\pmb{d}} -
+  2\mathrm{Tr}(\pmb{X}^{\top}\pmb{X}\pmb{d}\pmb{d}^{\top}) +
+  \mathrm{Tr}(\pmb{X}^{\top}\pmb{X}\pmb{d}\pmb{d}^{\top}\pmb{d}\pmb{d}^{\top})
+  \quad\text{使}\;\pmb{d}^{\top}\pmb{d} = 1\;\text{满足}\\
+  = \mathop{\arg\min}_{\pmb{d}} -
+  2\mathrm{Tr}(\pmb{X}^{\top}\pmb{X}\pmb{d}\pmb{d}^{\top}) +
+  \mathrm{Tr}(\pmb{X}^{\top}\pmb{X}\pmb{d}\pmb{d}^{\top})
+  \quad\text{使}\;\pmb{d}^{\top}\pmb{d} = 1\;\text{满足}
+\end{gather}
+
+（）
+\begin{gather}
+  = \mathop{\arg\min}_{\pmb{d}} -
+  \mathrm{Tr}(\pmb{X}^{\top}\pmb{X}\pmb{d}\pmb{d}^{\top})
+  \quad\text{使}\;\pmb{d}^{\top}\pmb{d} = 1\;\text{满足}\\
+  = \mathop{\arg\min}_{\pmb{d}} 
+  \mathrm{Tr}(\pmb{X}^{\top}\pmb{X}\pmb{d}\pmb{d}^{\top})
+  \quad\text{使}\;\pmb{d}^{\top}\pmb{d} = 1\;\text{满足}\\
+  = \mathop{\arg\min}_{\pmb{d}} 
+  \mathrm{Tr}(\pmb{d}^{\top}\pmb{X}^{\top}\pmb{X}\pmb{d})
+  \quad\text{使}\;\pmb{d}^{\top}\pmb{d} = 1\;\text{满足}
+\end{gather}
+
+线性代数是根本数学学科是必要了解深度学习中的一个。另一个\gls*{ml}中普遍存在的重
+要的数学领域是概率论，接下来介绍。
