@@ -1,2 +1,44 @@
 \chapter{数值计算}
 \label{ch:numerical}
+
+\gls*{ml}算法通常需要大量的数值计算。这通常指那些解决数学问题的算法，这样的算法使
+用的方法是通过一个迭代的过程，而不是给定一个对正确解的象征性的表达式分析导出一个
+公式。常见的操作包括优化（找到一个参数的值，最小化或者最大化一个函数）和解线性方
+程组。当函数涉及到实数，在一个计算机上即使只是对一个数学函数求值都是困难的，它无
+法用有限内存精确表示。
+
+\section{上溢和下溢}
+\label{sec:overflow_and_underflow}
+
+在一个数字计算机上做连续的数学计算的主要困难，是我们需要用一个有限的、以 bit 位的
+模式的数字来表示无限多的实数。这意味着对于几乎所有的实数，当我们在计算机中表示这
+些数字时引起了一些近似误差。在多数情况下，这仅仅是舍入误差。舍入误差是有问题的，
+尤其是当它经过许多操作后进一步恶化，并且，如果算法没有被设计为最小化舍入误差的累
+加，它们能使理论上可行的算法在实际中失败。
+
+一种特别严重的舍入误差的形式是\emph{\gls{underflow}}。\gls*{underflow}发生在当数
+字接近 $0$ 而被舍入为 $0$ 的时候。许多函数当它们的参数为 $0$ 而不是一个小的正数时
+表现出本质上的不同。例如，我们通常想要避免被 $0$ 除（当这种情况发生时有些软件环境
+会产生异常，其它的会返回结果为一个占位符 \verb!not-a-number! 的值）或者取 $0$ 的
+对数（这通常被当作 $-\infty$ 对待，如果它被用于更进一步的算数操作会变
+成\verb!not-a-number!）。
+
+另一个有高度破坏性的数值误差的形式是\emph{\gls{overflow}}。\gls*{overflow}发生在
+当具有大的数量级的数字被近似为 $\infty$ 或 $-\infty$ 的时候。进一步的算数计算通常
+把这些无限值改为 \verb!not-a-number! 值。
+
+一个函数必须针对\gls*{underflow}和\gls*{overflow}稳定化的函数是\gls*{softmax}函
+数。\gls*{softmax}函数常常被用于预测和一个多项分布关联的概率。\gls*{softmax}函数
+被定义为
+\begin{equation}
+  \mathrm{softmax}(\pmb{x})_i = \frac{\exp(x_i)}{\sum_{j=1}^n\exp(x_j)}
+\end{equation}
+
+考虑当所有的 $x_i$ 等于某些常数 $c$ 时会发生什么。通过分析，我们能够看到所有的输
+出应该等于 $\frac{1}{n}$。
+
+\section{Poor Conditioning}
+\label{sec:poor_conditioning}
+
+\section{基于梯度的最优化}
+\label{sec:gradient-based_optimization}

@@ -71,7 +71,7 @@
     $\pmb{A}^{\top}$ & 矩阵 $\pmb{A}$ 的转置 \\
     $\pmb{A}^+$ & 矩阵 $\pmb{A}$ 的摩尔--彭若斯广义逆 \\
     $\pmb{A} \odot \pmb{B}$ & 矩阵 $\pmb{A}$ 和 $\pmb{B}$ 的按元素（阿达玛）乘积 \\
-    $\mathrm{det}(\pmb{A})$ & 矩阵 $\pmb{A}$ 的行列式
+    $\det(\pmb{A})$ & 矩阵 $\pmb{A}$ 的行列式
   \end{tabular}
 \end{center}
 
@@ -125,20 +125,20 @@
     $f : \mathbb{A} \rightarrow \mathbb{B}$ & 定义域为 $\mathbb{A}$，值域为 $\mathbb{B}$ 的函数 $f$ \\
     $f \circ g$ & 函数 $f$ 和 $g$ 的组合 \\ % 复合函数
     $f(\pmb{x};\pmb{\theta})$ & $\pmb{x}$ 的函数，$\pmb{x}$ 由 $\pmb{\theta}$ 参数化。有时候我们只写 $f(\pmb{x})$，忽略参数 $\pmb{\theta}$ 来简化符号。 \\
-    $\mathrm{log}\; x$ & $x$ 的自然对数 \\
-    $\sigma(x)$ & {\serif Logistic sigmoid}，$\frac{1}{1 + \mathrm{exp}(-x)}$ \\
-    $\zeta(x)$ & {\serif Softplus}，$\mathrm{log}(1 + \mathrm{exp}(x))$ \\
-    $||\pmb{x}||_p$ & $\pmb{x}$ 的 $L^p$ 模 \\
-    $||\pmb{x}||$ & $\pmb{x}$ 的 $L^2$ 模 \\
-    $x^+$ & $x$ 的正数部分，即 $\mathrm{max}(0,x)$ \\
+    $\log x$ & $x$ 的自然对数 \\
+    $\sigma(x)$ & {\serif Logistic sigmoid}，$\displaystyle\frac{1}{1 + \exp(-x)}$ \\
+    $\zeta(x)$ & {\serif Softplus}，$\log(1 + \exp(x))$ \\
+    $||\pmb{x}||_p$ & $\pmb{x}$ 的 $L^p$ \gls*{norm} \\
+    $||\pmb{x}||$ & $\pmb{x}$ 的 $L^2$ \gls*{norm} \\
+    $x^+$ & $x$ 的正数部分，即 $\max(0,x)$ \\
     $\pmb{1}_{\mathrm{condition}}$ & 如果条件真为 $1$，否则为 $0$ \\
   \end{tabular}
 \end{center}
 
-有时候我们使用一个参数是一个标量的函数 $f$，但是将它应用到一个向量，矩阵，
-或者张量：$f(\pmb{x})$，$f(\pmb{X})$，或 $f(\pmb{\mathsf{X}})$。
-这意思是将 $f$ 按元素应用到数组。例如，如果 $\pmb{\mathsf{C}} = \sigma(\pmb{\mathsf{X}})$，
-那么对于所有有效的 $i$，$j$ 和 $k$ 的值，$\mathsfit{C}_{i,j,k} = \sigma(\mathsfit{X}_{i,j,k})$。
+有时候我们使用一个参数是一个标量的函数 $f$，但是将它应用到一个向量、矩阵或者张量：
+$f(\pmb{x})$，$f(\pmb{X})$，或 $f(\pmb{\mathsf{X}})$。这意思是将 $f$ 按元素应用
+到数组。例如，如果 $\pmb{\mathsf{C}} = \sigma(\pmb{\mathsf{X}})$，那么对于所有有
+效的 $i$，$j$ 和 $k$ 的值，$\mathsfit{C}_{i,j,k} = \sigma(\mathsfit{X}_{i,j,k})$。
 
 \vspace{1em}
 
