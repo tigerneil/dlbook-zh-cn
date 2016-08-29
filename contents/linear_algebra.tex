@@ -565,25 +565,27 @@ $\pmb{A}$ 为：
 \end{equation}
 
 假设 $\pmb{A}$ 是一个 $m \times n$ 的矩阵。那么 $\pmb{U}$ 被定义为一个 $m \times
-n$ 的矩阵，$\pmb{D}$ 是一个 $m \times n$ 的矩阵，$\pmb{V}$ 是一个 $n \times n$
-的矩阵。
+n$ 的矩阵，$\pmb{D}$ 是一个 $m \times n$ 的矩阵，$\pmb{V}$ 是一个 $n \times n$的
+矩阵。
 
 这些矩阵每个都被定义为具有一个特殊结构。矩阵 $\pmb{U}$ 和 $\pmb{V}$ 都被定义为正
 交矩阵。矩阵 $\pmb{D}$ 被定义为一个对角矩阵。注意 $\pmb{D}$ 不是必须为方块矩阵。
 
-沿着 $\pmb{D}$ 对角线的元素被称为矩阵 $\pmb{A}$ 的\emph{\gls{singular-val}}。
-$\pmb{U}$ 的列被称为\emph{\gls{left-singular-vecs}}。$\pmb{V}$ 的列被称为
-\emph{\gls{right-singular-vecs}}。
+沿着 $\pmb{D}$ 对角线的元素被称为矩
+阵 $\pmb{A}$ 的\emph{\gls{singular-val}}。$\pmb{U}$ 的列被称
+为\emph{\gls{left-singular-vecs}}。$\pmb{V}$ 的列被称
+为\emph{\gls{right-singular-vecs}}。
 
-实际上我们可以以 $\pmb{A}$ 的特征分解的功能方面来解释 $\pmb{A}$ 的
-\gls*{singular-val}分解。$\pmb{A}$ 的\gls*{left-singular-vecs}是
-$\pmb{A}\pmb{A}^{\top}$ 的\gls*{eigen-vecs}。$\pmb{A}$ 的
-\gls*{right-singular-vecs}是$\pmb{A}^{\top}\pmb{A}$ 的\gls*{eigen-vecs}。
-$\pmb{A}$ 的非 $0$ \gls*{singular-vals}是 $\pmb{A}^{\top}\pmb{A}$ 的
-\gls*{eigen-vecs}的平方根。对于 $\pmb{A}\pmb{A}^{\top}$ 也一样。
+实际上我们可以以 $\pmb{A}$ 的特征分解的功能方面来解
+释 $\pmb{A}$ 的\gls*{singular-val}分
+解。$\pmb{A}$ 的\gls*{left-singular-vecs}是$\pmb{A}\pmb{A}^{\top}$ 的
+\gls*{eigen-vecs}。$\pmb{A}$ 的\gls*{right-singular-vecs}是
+$\pmb{A}^{\top}\pmb{A}$ 的\gls*{eigen-vecs}。$\pmb{A}$ 的非 $0$
+\gls*{singular-vals}是 $\pmb{A}^{\top}\pmb{A}$ 的\gls*{eigen-vecs}的平方根。对
+于 $\pmb{A}\pmb{A}^{\top}$ 也一样。
 
-也许 SVD 最有用的功能，是我们能够用它来部分归纳出非方块矩阵的逆矩阵，正如我们在
-接下来一节会看到的。
+也许 SVD 最有用的功能，是我们能够用它来部分归纳出非方块矩阵的逆矩阵，正如我们在接
+下来一节会看到的。
 
 \section{摩尔--彭若斯广义逆}
 \label{sec:the_moore_penrose_pseudoinverse}
@@ -603,8 +605,8 @@ $\pmb{A}$ 的非 $0$ \gls*{singular-vals}是 $\pmb{A}^{\top}\pmb{A}$ 的
 如果 $\pmb{A}$ 的高大于它的宽，那么这个方程有可能无解。如果 $\pmb{A}$ 的宽大于高，
 那么有可能有多个解。
 
-\emph{\gls{moore-penrose-pseudoinverse}}\,允许我们在这种情况下取得进展。
-$\pmb{A}$ 的广义逆被定义为一个矩阵
+\emph{\gls{moore-penrose-pseudoinverse}}\,允许我们在这种情况下取得进
+展。$\pmb{A}$ 的广义逆被定义为一个矩阵
 \begin{equation}
   \pmb{A}^+ = \lim_{\alpha \searrow 0}(\pmb{A}^+\pmb{A} +
   \alpha\pmb{I})^{-1}\pmb{A}^{\top}
@@ -613,17 +615,17 @@ $\pmb{A}$ 的广义逆被定义为一个矩阵
 \begin{equation}
   \pmb{A}^+ = \pmb{V}\pmb{D}^+\pmb{U}^{\top}
 \end{equation}
-其中 $\pmb{U}$，$\pmb{D}$ 和 $\pmb{V}$ 是 $\pmb{A}$ 的\gls*{singular-val}分解，
-而一个对角矩阵 $\pmb{D}$ 的广义逆 $\pmb{D}^+$ 是通过取它的非 $0$ 元素的倒数然后
-取所得矩阵的转置得到的。
+其中 $\pmb{U}$，$\pmb{D}$ 和 $\pmb{V}$ 是 $\pmb{A}$ 的\gls*{singular-val}分解，而
+一个对角矩阵 $\pmb{D}$ 的广义逆 $\pmb{D}^+$ 是通过取它的非 $0$ 元素的倒数然后取所
+得矩阵的转置得到的。
 
-当 $\pmb{A}$ 的列数多于行数，那么使用广义逆解一个线性方程提供了许多可能解中的一
-个。明确地，它给出在所有可能的解中具有最小欧几里得范数 $\|\pmb{x}\|_2$ 的解
-$\pmb{x} = \pmb{A}^+\pmb{y}$。
+当 $\pmb{A}$ 的列数多于行数，那么使用广义逆解一个线性方程提供了许多可能解中的一个。
+明确地，它给出在所有可能的解中具有最小欧几里得范数 $\|\pmb{x}\|_2$ 的解$\pmb{x}
+= \pmb{A}^+\pmb{y}$。
 
-当 $\pmb{A}$ 的行数多于列数，可能无解。在这种情况下，使用广义逆为我们给出了就欧
-几里得范数 $\|\pmb{A}\pmb{x} - \pmb{y}\|_2$ 而言使得 $\pmb{A}\pmb{x}$ 尽可能接近
-$\pmb{y}$ 的 $\pmb{x}$ 值。
+当 $\pmb{A}$ 的行数多于列数，可能无解。在这种情况下，使用广义逆为我们给出了就欧几
+里得范数 $\|\pmb{A}\pmb{x} - \pmb{y}\|_2$ 而言使得 $\pmb{A}\pmb{x}$ 尽可能接
+近$\pmb{y}$ 的 $\pmb{x}$ 值。
 
 \section{迹算子}
 \label{sec:the_trace_operator}
@@ -634,9 +636,11 @@ $\pmb{y}$ 的 $\pmb{x}$ 值。
 \end{equation}
 
 迹算子之所以有用是有多种原因的。一些不借助求和符号难于具体说明的算子，能够使用矩
-阵乘积和迹算子来说明。例如，迹算子提供了一个写出矩阵的弗罗贝尼乌斯范数的替代方法：
+阵乘积和迹算子来说明。例如，迹算子提供了一个写出矩阵的弗罗贝尼乌斯范数的替代方
+法：
 \begin{equation}
   \|A\|_F = \sqrt{\mathrm{Tr}(\pmb{A}\pmb{A}^{\top})}
+  \label{eq:trace_operator_of_frobenius_norm}
 \end{equation}
 
 以迹算子的形式写一个表达式开辟了利用许多有用特性来处理表达式的机会。例如，迹算子
@@ -655,11 +659,13 @@ $\pmb{y}$ 的 $\pmb{x}$ 值。
 \begin{equation}
   \mathrm{Tr}(\prod^n_{i=1}\pmb{F}^{(i)} =
   \mathrm{Tr}(\pmb{F}^{(n)}\prod^{n-1}_{i=1}\pmb{F}^{(i)})
+  \label{eq:trace_of_square_matrix}
 \end{equation}
-这个循环排列的不变性即使当得到的乘积有一个不同的形状仍然保持成立。例如，对于
-$\pmb{A} \in \mathbb{R}^{m \times n}$ 和 $\pmb{B} \in \mathbb{R}^{n \times m}$，
-即使 $\pmb{A}\pmb{B} \in \mathbb{R}^{m \times m}$ 和 $\pmb{B}\pmb{A} \in
-\mathbb{R}^{n \times n}$，我们有
+这个循环排列的不变性即使当得到的乘积有一个不同的形状仍然保持成立。例如，对
+于 $\pmb{A} \in \mathbb{R}^{m \times n}$ 和
+$\pmb{B} \in \mathbb{R}^{n \times m}$，即使
+$\pmb{A}\pmb{B} \in \mathbb{R}^{m \times m}$ 和
+$\pmb{B}\pmb{A} \in \mathbb{R}^{n \times n}$，我们有
 \begin{equation}
   \mathrm{Tr}(\pmb{A}\pmb{B}) = \mathrm{Tr}(\pmb{B}\pmb{A})
 \end{equation}
@@ -669,10 +675,11 @@ $\pmb{A} \in \mathbb{R}^{m \times n}$ 和 $\pmb{B} \in \mathbb{R}^{n \times m}$�
 \section{行列式}
 \label{sec:the_determinant}
 
-一个方块矩阵的行列式，表示为 $\det(\pmb{A})$，是一个将矩阵映射为实数标量的函数。
-行列式等于矩阵的所有\gls*{eigen-vals}的乘积。行列式的绝对值可以被看作是衡量被矩
-阵相乘后扩展或者压缩了多少空间。如果行列式为 $0$，那么空间被完全沿着至少一个维度
-压缩，导致它丢失了所有体积。如果行列式为 $1$，那么变换是保体积的。
+一个方块矩阵的行列式，表示为
+$\det(\pmb{A})$，是一个将矩阵映射为实数标量的函数。行列式等于矩阵的所
+有\gls*{eigen-vals}的乘积。行列式的绝对值可以被看作是衡量被矩阵相乘后扩展或者压缩
+了多少空间。如果行列式为 $0$，那么空间被完全沿着至少一个维度压缩，导致它丢失了所
+有体积。如果行列式为 $1$，那么变换是保体积的。
 
 \section{示例：主成分分析}
 \label{sec:example:principal_components_analysis}
@@ -680,39 +687,41 @@ $\pmb{A} \in \mathbb{R}^{m \times n}$ 和 $\pmb{B} \in \mathbb{R}^{n \times m}$�
 一个简单的\gls*{ml}算法，\emph{\gls{pca}}\,或者 \emph{PCA}，能够仅仅利用线性代数
 的基本知识来推导。
 
-假设我们在 $\mathbb{R}^n$ 中有一个 $m$ 个点的集合 $\{\pmb{x}^{(1)}, \ldots,
-\pmb{x}^{(m)}\}$。假设我们想要在这些点上应用有损数据压缩。有损数据压缩意味着以一
-个需要更少内存但是可能丢失一些精度的方式存储这些点。我们想要丢失尽可能少的精度。
+假设我们在 $\mathbb{R}^n$ 中有一个 $m$ 个点的集合
+$\{\pmb{x}^{(1)}, \ldots, \pmb{x}^{(m)}\}$。假设我们想要在这些点上应用有损数据压
+缩。有损数据压缩意味着以一个需要更少内存但是可能丢失一些精度的方式存储这些点。我
+们想要丢失尽可能少的精度。
 
-一种我们能对这些点进行编码的方式是表示它们的一个低维度版本。对每个点
-$\pmb{x}^{(i)} \in \mathbb{R}^n$，我们能找到一个相应的编码向量 $\pmb{c}^{(i)}
-\in \mathbb{R}^l$。如果 $l$ 小于 $n$，它会用比原始数据更少内存用于存储编码的点。
-我们想要找到某个编码函数 $f(\pmb{x}) = \pmb{c}$，它为一个输入生成编码，以及一个
-解码函数，给定它的编码生成重构的输入，$\pmb{x} \approx g(f(\pmb{x}))$。
+一种我们能对这些点进行编码的方式是表示它们的一个低维度版本。对每个
+点 $\pmb{x}^{(i)} \in \mathbb{R}^n$，我们能找到一个相应的编码向量
+$\pmb{c}^{(i)} \in \mathbb{R}^l$。如果 $l$ 小于 $n$，它会用比原始数据更少内存用于
+存储编码的点。我们想要找到某个编码函数
+$f(\pmb{x}) = \pmb{c}$，它为一个输入生成编码，以及一个解码函数，给定它的编码生成
+重构的输入，$\pmb{x} \approx g(f(\pmb{x}))$。
 
 PCA 是由我们选择的解码函数定义的。更明确地说，要使得解码非常简单，我们选择使用矩
-阵操作来将编码映射回 $\mathbb{R}^n$。让 $g(\pmb{c}) = \pmb{D}\pmb{c}$，其中
-$\pmb{D} \in \mathbb{R}^{n \times l}$ 是定义解码的矩阵。
+阵操作来将编码映射回 $\mathbb{R}^n$。让 $g(\pmb{c}) = \pmb{D}\pmb{c}$，其
+中 $\pmb{D} \in \mathbb{R}^{n \times l}$ 是定义解码的矩阵。
 
-为这个解码器计算最优的编码可能是一个困难的问题。为了让编码问题保持简单，PCA 将
-$\pmb{D}$ 的列限制为彼此正交。（注意 $\pmb{D}$ 严格地说仍然不是``一个正交矩阵''，
-  除非 $l = n$）
+为这个解码器计算最优的编码可能是一个困难的问题。为了让编码问题保持简
+单，PCA 将 $\pmb{D}$ 的列限制为彼此正交。（注意 $\pmb{D}$ 严格地说仍然不是``一个
+正交矩阵''，除非 $l = n$）
 
-随着目前所描述的问题，有可能有许多解，因为如果我们对所有点按比例减小 $c_i$ 我们
-能够增加 $\pmb{D}_{:,i}$ 的规模。为了给出问题的唯一解，我们限制 $\pmb{D}$ 的所有
-列具有单位\gls*{norm}。
+随着目前所描述的问题，有可能有许多解，因为如果我们对所有点按比例减小 $c_i$ 我们能
+够增加 $\pmb{D}_{:,i}$ 的规模。为了给出问题的唯一解，我们限制 $\pmb{D}$ 的所有列
+具有单位\gls*{norm}。
 
 为了将这个基本的思想转化为一个我们能够实现的算法，我们首先需要做的是计算出如何为
-每个输入点 $\pmb{x}$ 产生最优的编码点 $\pmb{c}^*$。一种方法是最小化输入点
-$\pmb{x}$ 和它的复原值 $g(\pmb{c}^*)$ 之间的距离。我们可以用一个\gls*{norm}来衡
-量这个距离。在主成分算法中，我们使用 $L^2$ \gls*{norm}：
+每个输入点 $\pmb{x}$ 产生最优的编码点 $\pmb{c}^*$。一种方法是最小化输入
+点 $\pmb{x}$ 和它的复原值 $g(\pmb{c}^*)$ 之间的距离。我们可以用一个\gls*{norm}来
+衡量这个距离。在主成分算法中，我们使用 $L^2$ \gls*{norm}：
 \begin{equation}
   \pmb{c}^* = \mathop{\arg\min}_{\pmb{c}}\|\pmb{x} - g(\pmb{c})\|_2
 \end{equation}
 
 我们可以换成平方 $L^2$ \gls*{norm}而不是 $L^2$ \gls*{norm}自身，因为它们都被相同
-的 $\pmb{c}$ 值最小化。这是因为 $L^2$ \gls*{norm}是非负的，而平方算子对非负参数
-是单调增加的。
+的 $\pmb{c}$ 值最小化。这是因为 $L^2$ \gls*{norm}是非负的，而平方算子对非负参数是
+单调增加的。
 \begin{equation}
   \pmb{c}^* = \mathop{\arg\min}_{\pmb{c}}\|\pmb{x} - g(\pmb{c})\|^2_2
 \end{equation}
@@ -732,7 +741,8 @@ $\pmb{x}$ 和它的复原值 $g(\pmb{c}^*)$ 之间的距离。我们可以用一
 \end{equation}
 （因为标量 $g(\pmb{x})^{\top}$ 等于其自身的转置）。
 
-现在我们能再次改变正在被最小化的函数，来忽略第一项，因为这一项不依赖于 $\pmb{c}$：
+现在我们能再次改变正在被最小化的函数，来忽略第一项，因为这一项不依赖
+于 $\pmb{c}$：
 \begin{equation}
   \pmb{c}^* = \mathop{\arg\min}_{\pmb{c}} - 2\pmb{x}^{\top}g(\pmb{c}) +
     g(\pmb{c})^{\top}g(\pmb{c})
@@ -752,15 +762,16 @@ $\pmb{x}$ 和它的复原值 $g(\pmb{c}^*)$ 之间的距离。我们可以用一
   \pmb{c}^{\top}\pmb{c}
 \end{equation}
 
-我们能够使用\gls*{vec}微积分解这个最优化问题（如果你不知道怎么做，参见 4.3 节）：
+我们能够使用\gls*{vec}微积分解这个最优化问题（如果你不知道怎么做，参
+见~\ref{sec:gradient-based_optimization} 节）：
 \begin{gather}
   \nabla_{\pmb{c}}(-2\pmb{x}^{\top}\pmb{D}\pmb{c} + \pmb{c}^{\top}\pmb{c}) = 0\\
   -2\pmb{D}^{\top}\pmb{x} + 2\pmb{c} = 0\\
   \pmb{c} = \pmb{D}^{\top}\pmb{x}
 \end{gather}
 
-这使得算法更有效率：我们能够仅仅使用一个矩阵--\gls*{vec}算子来最优化地编码
-$\pmb{x}$。要编码一个\gls*{vec}，我们应用编码器函数
+这使得算法更有效率：我们能够仅仅使用一个矩阵--\gls*{vec}算子来最优化地编
+码 $\pmb{x}$。要编码一个\gls*{vec}，我们应用编码器函数
 \begin{equation}
   f(\pmb{x}) = \pmb{D}^{\top}\pmb{x}
 \end{equation}
@@ -771,9 +782,9 @@ $\pmb{x}$。要编码一个\gls*{vec}，我们应用编码器函数
 \end{equation}
 
 接下来，我们需要选择编码矩阵 $\pmb{D}$。为此，我们回顾下最小化输入和重构的 $L^2$
-距离的想法。然而，既然我们会使用相同的矩阵 $\pmb{D}$ 来解码所有点，我们不能再孤
-立地考虑这些点。相反，我们必须最小化在所有维度和所有点上计算的误差矩阵的弗罗贝尼
-乌斯\gls*{norm}：
+距离的想法。然而，既然我们会使用相同的矩阵 $\pmb{D}$ 来解码所有点，我们不能再孤立
+地考虑这些点。相反，我们必须最小化在所有维度和所有点上计算的误差矩阵的弗罗贝尼乌
+斯\gls*{norm}：
 \begin{equation}
   \pmb{D}^* = \mathop{\arg\min}_{\pmb{D}}\sqrt{\sum_{i,j}(x^{(i)}_j -
     r(\pmb{x}^{(i)})_j)^2}\quad\text{使}\;\pmb{D}^{\top}\pmb{D} =
@@ -781,35 +792,44 @@ $\pmb{x}$。要编码一个\gls*{vec}，我们应用编码器函数
   \label{eq:frobenius_norm_of_errors_matrix}
 \end{equation}
 
-为了推导找出 $\pmb{D}^*$ 的算法，我们开始会考虑 $l = 1$ 的情况。在这种情况下，
-$\pmb{D}$ 仅仅是单个\gls*{vec}，$\pmb{d}$。将方
+为了推导找出 $\pmb{D}^*$ 的算法，我们开始会考虑 $l = 1$ 的情况。在这种情况
+下，$\pmb{D}$ 仅仅是单个\gls*{vec}，$\pmb{d}$。将方
 程~\ref{eq:pca_reconstruction_operation} 代入方
-程~\ref{eq:frobenius_norm_of_errors_matrix} 并将 $\pmb{D}$ 简化为 $\pmb{d}$，这
-个问题缩小为
+程~\ref{eq:frobenius_norm_of_errors_matrix} 并将 $\pmb{D}$ 简化为 $\pmb{d}$，这个
+问题缩小为
 \begin{equation}
   \pmb{d}^* = \mathop{\arg\min}_{\pmb{d}}\sum_i\|\pmb{x}^{(i)} -
   \pmb{d}\pmb{d}^{\top}\pmb{x}^{(i)}\|^2_2\quad\text{使}\;\|\pmb{d}\|_2 =
   1\;\text{满足}
 \end{equation}
 
+上面的公式化是实施代入的最直接的方法，但在写方程的风格上不是最令人满意的方法。它
+把标量值 $\pmb{d}^{\top}\pmb{x}^{(i)}$ 放在\gls*{vec} $\pmb{d}$ 的右边。把标量系
+数写在它们作用于的\gls*{vec}更符合习惯。所以我们通常把这样一个公式写为
 \begin{equation}
   \pmb{d}^* = \mathop{\arg\min}_{\pmb{d}}\sum_i\|\pmb{x}^{(i)} -
   \pmb{d}^{\top}\pmb{x}^{(i)}\pmb{d}\|^2_2\quad\text{使}\;\|\pmb{d}\|_2 =
   1\;\text{满足}
 \end{equation}
-
+或者，利用一个标量是它自身的转置这一事实，写为
 \begin{equation}
   \pmb{d}^* = \mathop{\arg\min}_{\pmb{d}}\sum_i\|\pmb{x}^{(i)} -
   \pmb{x}^{(i)\top}\pmb{d}\pmb{d}\|^2_2\quad\text{使}\;\|\pmb{d}\|_2 =
   1\;\text{满足}
 \end{equation}
+读者应该力求变得熟悉这样的妆点性的重新整理。
 
+到这里，以一个设计好的样本矩阵的形式，而不是在单独样本\gls*{vecs}上的求和，来重写
+这个问题会更有帮助。这会允许我们使用更紧凑的符号。让 $\pmb{X} \in \mathbb{R}^{m
+  \times n}$ 作为由整齐堆积所有描述这些点的\gls*{vecs}~——~诸如
+$\pmb{X}_{i,:} = {x^{(i)}}^{\top}$~——~定义的矩阵。我们现在能够重写问题为
 \begin{equation}
   \pmb{d}^* = \mathop{\arg\min}_{\pmb{d}}\sum_i\|\pmb{X} -
   \pmb{X}\pmb{d}\pmb{d}^{\top}\|^2_F\quad\text{使}\;\pmb{d}^{\top}\pmb{d} =
   1\;\text{满足}
 \end{equation}
 
+暂时忽略约束，我们能够如下简化弗罗贝尼乌斯范数部分：
 \begin{gather}
   \mathop{\arg\min}_{\pmb{d}}\|\pmb{X} - \pmb{X}\pmb{d}\pmb{d}^{\top}\|^2_F\\ =
   \mathop{\arg\min}_{\pmb{d}}\mathrm{Tr}\,\bigg(\Big(\pmb{X} -
@@ -817,7 +837,7 @@ $\pmb{D}$ 仅仅是单个\gls*{vec}，$\pmb{d}$。将方
   \pmb{X}\pmb{d}\pmb{d}^{\top}\Big)\bigg)
 \end{gather}
 
-（由于方程 2.49）
+（由于方程~\ref{eq:trace_operator_of_frobenius_norm}）
 \begin{gather}
   = \mathop{\arg\min}_{\pmb{d}}\mathrm{Tr}(\pmb{X}^{\top}\pmb{X} -
   \pmb{X}^{\top}\pmb{X}\pmb{d}\pmb{d}^{\top} -
@@ -840,15 +860,16 @@ $\pmb{D}$ 仅仅是单个\gls*{vec}，$\pmb{d}$。将方
   \mathrm{Tr}(\pmb{d}\pmb{d}^{\top}\pmb{X}^{\top}\pmb{X}\pmb{d}\pmb{d}^{\top})
 \end{equation}
 
-（）
+（因为我们能够循环更替一个迹中矩阵的顺序，方程~\ref{eq:trace_of_square_matrix}）
 \begin{equation}
   = \mathop{\arg\min}_{\pmb{d}} -
   2\mathrm{Tr}(\pmb{X}^{\top}\pmb{X}\pmb{d}\pmb{d}^{\top}) +
   \mathrm{Tr}(\pmb{X}^{\top}\pmb{X}\pmb{d}\pmb{d}^{\top}\pmb{d}\pmb{d}^{\top})
 \end{equation}
 
-（）
+（再次使用相同的特性）
 
+到这里，我们重新引入约束：
 \begin{gather}
   \mathop{\arg\min}_{\pmb{d}} -
   2\mathrm{Tr}(\pmb{X}^{\top}\pmb{X}\pmb{d}\pmb{d}^{\top}) +
@@ -860,7 +881,7 @@ $\pmb{D}$ 仅仅是单个\gls*{vec}，$\pmb{d}$。将方
   \quad\text{使}\;\pmb{d}^{\top}\pmb{d} = 1\;\text{满足}
 \end{gather}
 
-（）
+（由于约束）
 \begin{gather}
   = \mathop{\arg\min}_{\pmb{d}} -
   \mathrm{Tr}(\pmb{X}^{\top}\pmb{X}\pmb{d}\pmb{d}^{\top})
@@ -873,5 +894,11 @@ $\pmb{D}$ 仅仅是单个\gls*{vec}，$\pmb{d}$。将方
   \quad\text{使}\;\pmb{d}^{\top}\pmb{d} = 1\;\text{满足}
 \end{gather}
 
-线性代数是根本数学学科是必要了解深度学习中的一个。另一个\gls*{ml}中普遍存在的重
-要的数学领域是概率论，接下来介绍。
+这个最优化问题可以使用特征分解来解。明确地说，最优化的 $\pmb{d}$ 由对应于最大
+的\gls*{eigen-val}的\gls*{eigen-vec} $\pmb{X}^{\top}\pmb{X}$ 给出。
+
+在普遍情况下，$l > 1$，矩阵 $\pmb{D}$ 由对应于最大的\gls*{eigen-val}的 $l$
+\gls*{eigen-vecs}给出。这可以使用归纳证明来显示。我们建议把写这个证明作为练习。
+
+线性代数是根本数学学科是必要了解深度学习中的一个。另一个\gls*{ml}中普遍存在的重要
+的数学领域是概率论，接下来介绍。
