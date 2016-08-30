@@ -34,8 +34,16 @@
   \mathrm{softmax}(\pmb{x})_i = \frac{\exp(x_i)}{\sum_{j=1}^n\exp(x_j)}
 \end{equation}
 
-考虑当所有的 $x_i$ 等于某些常数 $c$ 时会发生什么。通过分析，我们能够看到所有的输
-出应该等于 $\frac{1}{n}$。
+考虑当所有的 $x_i$ 等于某个常数 $c$ 时会发生什么。通过分析，我们能够看到所有的输
+出应该等于 $\frac{1}{n}$。从数字上看，当 $c$ 有很大的数量级时这可能不会发生。如
+果 $c$ 是很小的负数，那么 $\exp(c)$ 会\gls*{underflow}。这意味着\gls*{softmax}的
+分母会变成 $0$，所以最后的结果是未定义的。当 $c$ 是非常大的正数，$\exp(c)$ 会
+\gls*{overflow}，再一次导致整个表达式为未定义的。这两个困难都能够通过对
+$\mathrm{softmax}(\pmb{z})$~——~这里 $\pmb{z} = \pmb{x} - \max_ix_i$~——~求值来解
+决。通过分析，简单的代数显示，将输入\gls*{vec}加上或者减去一个标量，
+$\mathrm{softmax}$ 函数的值不会被改变。对 $\max_ix_i$ 做减法导致 $\exp$ 有最大的
+参数而为 $0$，这排除了\gls*{overflow}的可能。同样地，分母中至少一项值为 $1$，这
+排除了分母中导致被 $0$ 除的\gls*{underflow}的可能。
 
 \section{Poor Conditioning}
 \label{sec:poor_conditioning}
