@@ -45,8 +45,49 @@ $\mathrm{softmax}$ 函数的值不会被改变。对 $\max_ix_i$ 做减法导致
 参数而为 $0$，这排除了\gls*{overflow}的可能。同样地，分母中至少一项值为 $1$，这
 排除了分母中导致被 $0$ 除的\gls*{underflow}的可能。
 
-\section{Poor Conditioning}
+还有一个小问题。分子上的\gls*{underflow}仍然能引起整个表达式求值为 $0$。这意味着
+如果我们通过先运行 $\mathrm{softmax}$ 子程序然后传递其结果给 $\log$ 函数来实
+现 $\log\mathrm{softmax(\pmb{x})}$ 时，我们会错误地得到
+$-\infty$。相反，我们必需实现一个单独的函数，它以一个在数值上稳定的方式计
+算 $\log\mathrm{softmax}$。$\log\mathrm{softmax}$ 函数能够使用我们用于稳定
+化 $\mathrm{softmax}$ 函数的相同技巧来被稳定。
+
+在这本书中，对于大部分内容，我们没有明确地详细说明所有涉及到实现不同算法的数值上
+的考虑。底层库的开发者应该在实现\gls*{dl}算法时把数值问题记在心里。本书的大部分读
+者可以简单地依赖已经提供稳定实现的底层库。在有些情况下，有可能实现一个新的算法并
+且自动让新的实现稳定化。Theano
+\citep{bergstra+al:2010-scipy-small,Bastien-2012}是一个软件包的例子，它自动检测并
+稳定化许多常见的、出现在\gls*{dl}环境中的、数值上不稳定的表达式。
+
+\section{不合理的条件作用}
 \label{sec:poor_conditioning}
+
+条件作用是指一个函数如何随着它的输入中的微小变化快速改变。那些当它们的输入被微小
+扰动时快速变化的函数可能对科学计算是有问题的，这是因为在输入中的舍入误差可以导致
+输入上的巨大变化。
+
+考虑函数 $f(\pmb{x}) = \pmb{A}^{-1}\pmb{x}$。当 $\pmb{A} \in \mathbb{R}^{n
+  \times n}$ 有一个\gls*{eigen-val}分解，它的\emph{\gls{cond-num}}\,是
+\begin{equation}
+  \max_{i,j}|\frac{\lambda_i}{\lambda_j}|
+\end{equation}
+
+这是最大和最小幅度的\gls*{eigen-val}的比率。当这个数很大时，矩阵求逆对于输入中的
+误差是特别敏感的。
+
+这个敏感性是矩阵本身的一个本质特性，不是在矩阵求逆中舍入误差的结果。当我们用真的
+逆矩阵相乘时，条件不合理的矩阵放大了预先存在的误差。在实践中，这个误差会被求逆过
+程自身中的误差进一步加剧。
 
 \section{基于梯度的最优化}
 \label{sec:gradient-based_optimization}
+
+大部分\gls*{dl}算法涉及到某种优化。优化是指通过改变 $\pmb{x}$ 来最小化或者最大化
+某个函数 $f(\pmb{x})$ 的任务。我们通常以最小化 $f(\pmb{x})$ 的形式表达大部分优化
+问题。最大化可以通过一个最小化 $-f(\pmb{x})$ 的算法来完成。
+
+\begin{figure}[h]
+  \centering
+  \includegraphics{gradient_descent}
+  \caption{一个图例\label{fig:gradient_descent}}
+\end{figure}
