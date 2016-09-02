@@ -7,7 +7,7 @@
 程组。当函数涉及到实数，在一个计算机上即使只是对一个数学函数求值都是困难的，它无
 法用有限内存精确表示。
 
-\section{上溢和下溢}
+\section{溢出和下溢}
 \label{sec:overflow_and_underflow}
 
 在一个数字计算机上做连续的数学计算的主要困难，是我们需要用一个有限的、以 bit 位的
@@ -37,13 +37,14 @@
 考虑当所有的 $x_i$ 等于某个常数 $c$ 时会发生什么。通过分析，我们能够看到所有的输
 出应该等于 $\frac{1}{n}$。从数字上看，当 $c$ 有很大的数量级时这可能不会发生。如
 果 $c$ 是很小的负数，那么 $\exp(c)$ 会\gls*{underflow}。这意味着\gls*{softmax}的
-分母会变成 $0$，所以最后的结果是未定义的。当 $c$ 是非常大的正数，$\exp(c)$ 会
-\gls*{overflow}，再一次导致整个表达式为未定义的。这两个困难都能够通过对
-$\mathrm{softmax}(\pmb{z})$~——~这里 $\pmb{z} = \pmb{x} - \max_ix_i$~——~求值来解
-决。通过分析，简单的代数显示，将输入\gls*{vec}加上或者减去一个标量，
-$\mathrm{softmax}$ 函数的值不会被改变。对 $\max_ix_i$ 做减法导致 $\exp$ 有最大的
-参数而为 $0$，这排除了\gls*{overflow}的可能。同样地，分母中至少一项值为 $1$，这
-排除了分母中导致被 $0$ 除的\gls*{underflow}的可能。
+分母会变成 $0$，所以最后的结果是未定义的。当 $c$ 是非常大的正
+数，$\exp(c)$ 会\gls*{overflow}，再一次导致整个表达式为未定义的。这两个困难都能够
+通过对$\mathrm{softmax}(\pmb{z})$~——~这里
+$\pmb{z} = \pmb{x} - \max_ix_i$~——~求值来解决。通过分析，简单的代数显示，将输
+入\gls*{vec}加上或者减去一个标量，$\mathrm{softmax}$ 函数的值不会被改变。
+对 $\max_ix_i$ 做减法导致 $\exp$ 有最大的参数而为 $0$，这排除了\gls*{overflow}的
+可能。同样地，分母中至少一项值为 $1$，这排除了分母中导致
+被 $0$ 除的\gls*{underflow}的可能。
 
 还有一个小问题。分子上的\gls*{underflow}仍然能引起整个表达式求值为 $0$。这意味着
 如果我们通过先运行 $\mathrm{softmax}$ 子程序然后传递其结果给 $\log$ 函数来实
@@ -64,7 +65,7 @@ $-\infty$。相反，我们必需实现一个单独的函数，它以一个在�
 
 条件作用是指一个函数如何随着它的输入中的微小变化快速改变。那些当它们的输入被微小
 扰动时快速变化的函数可能对科学计算是有问题的，这是因为在输入中的舍入误差可以导致
-输入上的巨大变化。
+输出上的巨大变化。
 
 考虑函数 $f(\pmb{x}) = \pmb{A}^{-1}\pmb{x}$。当 $\pmb{A} \in \mathbb{R}^{n
   \times n}$ 有一个\gls*{eigen-val}分解，它的\emph{\gls{cond-num}}\,是
@@ -86,8 +87,53 @@ $-\infty$。相反，我们必需实现一个单独的函数，它以一个在�
 某个函数 $f(\pmb{x})$ 的任务。我们通常以最小化 $f(\pmb{x})$ 的形式表达大部分优化
 问题。最大化可以通过一个最小化 $-f(\pmb{x})$ 的算法来完成。
 
+我们想要最小化或者最大化的函数被称
+为\emph{\gls{obj-func}}\,或者\emph{\gls{criterion}}。当我们正在最小化它的时候，我
+们也可能称它\emph{\gls{cost-func}}，\emph{\gls{loss-func}}，或
+者\emph{\gls{err-func}}。尽管有些\gls*{ml}出版物给这些术语指定特别的意义，在这本
+数中，我们交换使用这些术语。
+
+我们常常用一个上标 $*$ 表示最小化或者最大化一个函数的值。例如，我们可能
+说 $\pmb{x}^* = \arg\min f(\pmb{x})$。
+
+我们假设读者已经熟悉微积分，但是这里提供了一个关于微积分概念如何和最优化相联系的
+简要回顾。
+
+假设我们有一个函数 $y = f(x)$，其中 $x$ 和 $y$ 都是实数。这个函数的导数被表示
+为 $f'(x)$ 或者 $\frac{dy}{dx}$。导数 $f'(x)$ 给出了 $f(x)$ 在点 $x$ 的斜率。换句
+话说，它指定了如何调整输入中的一个小的变化，以至于获得相应的输出中的变化：$f(x +
+\epsilon) \approx f(x) + \epsilon f'(x)$。
+
 \begin{figure}[h]
   \centering
   \includegraphics{gradient_descent}
-  \caption{一个图例\label{fig:gradient_descent}}
+  \caption{一个图例，演示一个函数的导数如何能够被用于沿着函数往下移动到一个最小值。
+    这个技术被称为\emph{\gls{gradient-descent}}。\label{fig:gradient_descent}}
 \end{figure}
+
+导数对于最小化一个函数是非常有用的，因为它告诉我们如何改变 $x$ 以至于在 $y$ 上产
+生一个小的改进。例如，我们知道对于足够小的 $\epsilon$，$f(x - \epsilon
+\mathrm{sign}(f'(x)))$ 比 $f(x)$ 小。这样我们能够通过以导数的相反符号小步地移
+动 $x$ 来减小
+$f(x)$。这个技术被称为\emph{\gls{gradient-descent}}。这个技术的示例参见
+图~\ref{fig:gradient_descent}。
+
+当 $f'(x) = 0$ 时，导数没有提供关于往哪个方向移动的信息。在 $f'(x) = 0$ 的点被称
+为\emph{\gls{critical-points}}\,或者\emph{\gls{stationary-points}}。一
+个\emph{\gls{local-min}}\,是一个在 $f(x)$ 比所有相邻点都小的位置处的点，所以不再
+可能通过做极小的步进来减小 $f(x)$。一个\emph{\gls{local-max}}\,是一个在 $(fx)$ 比
+所有相邻点都大的位置处的点，所以不再可能通过做极小的步进来增加$f(x)$。某
+些\gls*{critical-points}既不是最大值也不是最小值。它们被称
+为\emph{\gls{saddle-points}}。每种类型的临界点参见图~\ref{fig:critical_points}。
+
+\begin{figure}[h]
+  \centering
+  \includegraphics{critical_points}
+  \caption{一维空间中三种临界点的示例。一个临界点是斜率为 $0$ 的点。这样的一个点
+    既可以是一个局部最小值~——~它比相邻点更低~——~，一个局部最大值~——~它比相邻点更
+    高~——~，也可以是一个鞍点~——~它有高于和低于这个点自身的相邻
+    点。\label{fig:critical_points}}
+\end{figure}
+
+一个取得 $f(x)$ 的绝对最低值的点是一个\emph{\gls{global-min}}。函数可能存在只有一
+个\gls*{global-min}或者多个\gls*{global-min}。
