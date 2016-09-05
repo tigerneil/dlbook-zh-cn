@@ -39,12 +39,11 @@
 果 $c$ 是很小的负数，那么 $\exp(c)$ 会\gls*{underflow}。这意味着\gls*{softmax}的
 分母会变成 $0$，所以最后的结果是未定义的。当 $c$ 是非常大的正
 数，$\exp(c)$ 会\gls*{overflow}，再一次导致整个表达式为未定义的。这两个困难都能够
-通过对$\mathrm{softmax}(\pmb{z})$~——~这里
-$\pmb{z} = \pmb{x} - \max_ix_i$~——~求值来解决。通过分析，简单的代数显示，将输
-入\gls*{vec}加上或者减去一个标量，$\mathrm{softmax}$ 函数的值不会被改变。
-对 $\max_ix_i$ 做减法导致 $\exp$ 有最大的参数而为 $0$，这排除了\gls*{overflow}的
-可能。同样地，分母中至少一项值为 $1$，这排除了分母中导致
-被 $0$ 除的\gls*{underflow}的可能。
+通过对 $\mathrm{softmax}(\pmb{z})$ ~——~这里 $\pmb{z} = \pmb{x} - \max_ix_i$
+~——~求值来解决。通过分析，简单的代数显示，将输入\gls*{vec}加上或者减去一个标
+量，$\mathrm{softmax}$ 函数的值不会被改变。对 $\max_ix_i$ 做减法导致 $\exp$ 有最
+大的参数而为 $0$，这排除了\gls*{overflow}的可能。同样地，分母中至少一项值为 $1$，
+这排除了分母中导致被 $0$ 除的\gls*{underflow}的可能。
 
 还有一个小问题。分子上的\gls*{underflow}仍然能引起整个表达式求值为 $0$。这意味着
 如果我们通过先运行 $\mathrm{softmax}$ 子程序然后传递其结果给 $\log$ 函数来实
@@ -113,33 +112,34 @@ $-\infty$。相反，我们必需实现一个单独的函数，它以一个在�
 
 导数对于最小化一个函数是非常有用的，因为它告诉我们如何改变 $x$ 以至于在 $y$ 上产
 生一个小的改进。例如，我们知道对于足够小的 $\epsilon$，$f(x - \epsilon
-\mathrm{sign}(f'(x)))$ 比 $f(x)$ 小。这样我们能够通过以导数的相反符号小步地移动
-$x$ 来减小$f(x)$。这个技术被称为\emph{\gls{gradient-descent}}。这个技术的示例参
-见图~\ref{fig:gradient_descent}。
+\mathrm{sign}(f'(x)))$ 比 $f(x)$ 小。这样我们能够通过以导数的相反符号小步地移
+动 $x$ 来减小
+$f(x)$。这个技术被称为\emph{\gls{gradient-descent}}。这个技术的示例参见
+图~\ref{fig:gradient_descent}。
 
 当 $f'(x) = 0$ 时，导数没有提供关于往哪个方向移动的信息。在 $f'(x) = 0$ 的点被称
-为\emph{\gls{critical-points}}\,或者\emph{\gls{stationary-points}}。一个%
-\emph{\gls{local-min}}\,是一个在 $f(x)$ 比所有相邻点都小的位置处的点，所以不再可
-能通过做极小的步进来减小 $f(x)$。一个\emph{\gls{local-max}}\,是一个在 $(fx)$ 比
-所有相邻点都大的位置处的点，所以不再可能通过做极小的步进来增加 $f(x)$。某些
-\gls*{critical-points}既不是最大值也不是最小值。它们被称为
-\emph{\gls{saddle-points}}。每种类型的临界点参见图~\ref{fig:critical_points}。
+为\emph{\gls{critical-points}}\,或者\emph{\gls{stationary-points}}。一
+个\emph{\gls{local-min}}\,是一个在 $f(x)$ 比所有相邻点都小的位置处的点，所以不再
+可能通过做极小的步进来减小 $f(x)$。一个\emph{\gls{local-max}}\,是一个在 $(fx)$ 比
+所有相邻点都大的位置处的点，所以不再可能通过做极小的步进来增加
+$f(x)$。某些\gls*{critical-points}既不是最大值也不是最小值。它们被称
+为\emph{\gls{saddle-points}}。每种类型的临界点参见图~\ref{fig:critical_points}。
 
 \begin{figure}[h]
   \centering
   \includegraphics{critical_points}
   \caption{一维空间中三种临界点的示例。一个临界点是斜率为 $0$ 的点。这样的一个点
-    既可以是一个局部最小值~——~它比相邻点更低~——~，一个局部最大值~——~它比相邻点更
-    高~——~，也可以是一个鞍点~——~它有高于和低于这个点自身的相邻点。
-    \label{fig:critical_points}}
+    既可以是一个局部最小值~——~它比相邻点更低，一个局部最大值~——~它比相邻点更高，
+    也可以是一个鞍点~——~它有高于和低于这个点自身的相邻
+    点。\label{fig:critical_points}}
 \end{figure}
 
-一个取得 $f(x)$ 的绝对最低值的点是一个\emph{\gls{global-min}}。函数可能存在只有
-一个\gls*{global-min}或者多个\gls*{global-min}。也有可能存在并不是全局最优化的局
-部最小值。在\gls*{dl}环境中，我们优化的函数可能有许多不是最优的局部最小值，而且
-许多鞍点被非常平整的区域包围。所有这些使得最优化非常困难，尤其当函数的输入是多维
-的时候。所以我们通常满足于找到一个非常低的 $f$ 的值，但不是必须在任何正式意义上
-是最小的。参见图~\ref{fig:approximate_minimization} 的示例。
+一个取得 $f(x)$ 的绝对最低值的点是一个\emph{\gls{global-min}}。函数可能存在只有一
+个\gls*{global-min}或者多个\gls*{global-min}。也有可能存在并不是全局最优化的局部
+最小值。在\gls*{dl}环境中，我们优化的函数可能有许多不是最优的局部最小值，而且许多
+鞍点被非常平整的区域包围。所有这些使得最优化非常困难，尤其当函数的输入是多维的时
+候。所以我们通常满足于找到一个非常低的 $f$ 的值，但不是必须在任何正式意义上是最小
+的。参见图~\ref{fig:approximate_minimization} 的示例。
 
 \begin{figure}[h]
   \centering
@@ -147,20 +147,21 @@ $x$ 来减小$f(x)$。这个技术被称为\emph{\gls{gradient-descent}}。这�
   \caption{最优化算法可能失败\label{fig:approximate_minimization}}
 \end{figure}
 
-我们常常最小化有多个输入的函数：$f: \mathbb{R}^n \rightarrow \mathbb{R}$。为了让
-``最小化''的概念有意义，必须只有一个（标量）输出。
+我们常常最小化有多个输入的函数：$f: \mathbb{R}^n \rightarrow \mathbb{R}$。为了
+让``最小化''的概念有意义，必须只有一个（标量）输出。
 
 对于具有多个输入的函数，我们必须利用\emph{\gls{partial-derivatives}}\,的概念。偏
-导数 $\frac{\partial}{\partial x_i}f(\pmb{x})$ 测量 $f$ 在点 $\pmb{x}$ 仅当变量
-$x_i$ 增加时如何改变。\emph{\gls{gradient}}\,概括了在导数是相对于一个\gls*{vec}
-的情况下导数的概念：$f$ 的梯度是包含所有偏导数的\gls*{vec}，表示为
-$\nabla_{\pmb{x}}f(\pmb{x})$。梯度中的元素 $i$ 是 $f$ 对于 $x_i$ 的偏导数。在多
-维中，临界点是那些梯度中的每个元素等于 $0$ 的点。
+导数 $\frac{\partial}{\partial x_i}f(\pmb{x})$ 测量 $f$ 在点 $\pmb{x}$ 仅当变
+量 $x_i$ 增加时如何改变。\emph{\gls{gradient}}\,概括了在导数是相对于一
+个\gls*{vec}的情况下导数的概念：$f$ 的梯度是包含所有偏导数的\gls*{vec}，表示
+为 $\nabla_{\pmb{x}}f(\pmb{x})$。梯度中的元素 $i$ 是 $f$ 对于 $x_i$ 的偏导数。在
+多维中，临界点是那些梯度中的每个元素等于 $0$ 的点。
 
-$\pmb{u}$ 方向（一个单位\gls*{vec}）上的\emph{\gls{directional-derivative}}\,是
-函数 $f$ 在 $u$ 方向上的斜率。换句话说，方向导数是函数 $f(\pmb{x} +
+$\pmb{u}$ 方向（一个单位\gls*{vec}）上的\emph{\gls{directional-derivative}}\,是函
+数 $f$ 在 $u$ 方向上的斜率。换句话说，方向导数是函数 $f(\pmb{x} +
 \alpha\pmb{u})$ 对于 $\alpha$ 的导数，在 $\alpha = 0$ 处求值。使用这个链式规则，
-我们能够看到 $\frac{\partial}{\partial\alpha}f(\pmb{x} + \alpha\pmb{u}) =
+我们能够看到
+$\frac{\partial}{\partial\alpha}f(\pmb{x} + \alpha\pmb{u}) =
 \pmb{u}^{\top}\nabla_{\pmb{x}}f(\pmb{x})$。
 
 为了最小化 $f$，我们想要找到 $f$ 减小最快的方向。我们能够使用方向导数来这样做：
@@ -169,28 +170,35 @@ $\pmb{u}$ 方向（一个单位\gls*{vec}）上的\emph{\gls{directional-derivat
   = \min_{\pmb{u},\pmb{u}^{\top}\pmb{u}=1}\|\pmb{u}\|_2\|\nabla_{\pmb{x}}f(\pmb{x})\|_2\cos\theta
 \end{gather}
 其中 $\theta$ 是 $\pmb{u}$ 和梯度的夹角。代入 $\|\pmb{u}\|_2 = 1$ 并且忽略不依赖
-于 $\pmb{u}$ 的因子，这简化为 $\min_{\pmb{u}}\cos\theta$。当 $\pmb{u}$ 指向梯度
-的相反方向时其被最小化。换句话说，梯度直接指向上面，而负的梯度直接指向下面。我们
-能够通过沿着负的梯度方向移动来减小 $f$。这被称为\emph{\gls{steepest-descent}}\,%
-或者\emph{\gls{gradient-descent}}。
+于 $\pmb{u}$ 的因子，这简化为 $\min_{\pmb{u}}\cos\theta$。当 $\pmb{u}$ 指向梯度的
+相反方向时其被最小化。换句话说，梯度直接指向上面，而负的梯度直接指向下面。我们能
+够通过沿着负的梯度方向移动来减小
+$f$。这被称为\emph{\gls{steepest-descent}}\,或者\emph{\gls{gradient-descent}}。
 
 最陡下降提出了一个新的点
 \begin{equation}
   \pmb{x}' = \pmb{x} - \epsilon\nabla_{\pmb{x}}f(\pmb{x})
 \end{equation}
 其中 $\epsilon$ 是\emph{\gls{learning-rate}}，一个决定步进大小的正的标量。我们可
-以用几个不同方法来选择 $\epsilon$。一个流行的方法是把 $\epsilon$ 设为一个小的常
-数。有时候，我们能够解步进大小，使方向导数消失。另一种方法是对几个 $\epsilon$ 的
-值求得 $f(\pmb{x} - \epsilon\nabla_{\pmb{x}}f(\pmb{x}))$，选择导致最小%
-\gls*{obj-func}值的那个。最后一个策略被称为一个\emph{\gls{line-search}}。
+以用几个不同方法来选择 $\epsilon$。一个流行的方法是把 $\epsilon$ 设为一个小的常数。
+有时候，我们能够解步进大小，使方向导数消失。另一种方法是对几个 $\epsilon$ 的值求
+得
+$f(\pmb{x} - \epsilon\nabla_{\pmb{x}}f(\pmb{x}))$，选择导致最小\gls*{obj-func}值
+的那个。最后一个策略被称为一个\emph{\gls{line-search}}。
 
-最陡下降在梯度中的每个元素为 $0$ （或者，在实践中，非常接近于 $0$）时会于一点。
-在某些情况下，我们可能避免运行这个迭代算法，而只是通过解 $\pmb{x}$ 的方程
-$\nabla_{\pmb{x}}f(\pmb{x}) = 0$ 直接跳到临界点。
+最陡下降在梯度中的每个元素为 $0$ （或者，在实践中，非常接近于 $0$）时会于一点。在
+某些情况下，我们可能避免运行这个迭代算法，而只是通过解 $\pmb{x}$ 的方
+程 $\nabla_{\pmb{x}}f(\pmb{x}) = 0$ 直接跳到临界点。
 
 尽管梯度下降被限制于连续空间的最优化，朝更好的配置做小的移动（即大致是最好的小的
-  移动）的一般概念可以推广到离散空间。上升一个离散参数的\gls*{obj-func}被称为%
-\emph{\gls{hill-climbing}} \citep{Russel+Norvig-book2003}。
+移动）的一般概念可以推广到离散空间。上升一个离散参数的\gls*{obj-func}被称
+为\emph{\gls{hill-climbing}} \citep{Russel+Norvig-book2003}。
 
-\section{超越梯度：雅可比和海森矩阵}
-\label{sec:beyong_the_gradient}
+\subsection{超越梯度：雅可比和海森矩阵}
+\label{subsec:beyong_the_gradient}
+
+\section{Constrained Optimization}
+\label{sec:constrained_optimization}
+
+\section{Example: Linear Least Squares}
+\label{sec:example:linear_least_squares}
