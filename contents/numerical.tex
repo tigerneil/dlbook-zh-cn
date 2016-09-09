@@ -197,6 +197,50 @@ $f(\pmb{x} - \epsilon\nabla_{\pmb{x}}f(\pmb{x}))$，选择导致最小\gls*{obj-
 \subsection{超越梯度：雅可比和海森矩阵}
 \label{subsec:beyong_the_gradient}
 
+有时候我们需要找到一个函数的所有偏导数，它的输入和输出都是\gls*{vecs}。包含所有这
+样偏导数的矩阵被称为一个\emph{\gls{jacobian-matrix}}。具体来说，如果我们有一个函
+数 $\pmb{f}: \mathbb{R}^m \rightarrow \mathbb{R}^n$，那
+么 $\pmb{f}$ 的\gls*{jacobian-matrix} $\pmb{J} \in \mathbb{R}^{n \times m}$ 被定
+义为 $J_{i,j} = \frac{\partial}{\partial x_j}f(\pmb{x})_i$。
+
+有时候我们也对导数的导数感兴趣。这被称为一个\emph{\gls{second-derivative}}。例如，
+对于一个函数 $f: \mathbb{R}^n \rightarrow \mathbb{R}$，$f$ 对于 $x_j$ 的导数，其
+对于 $x_i$ 的导数表示为 $\frac{\partial^2}{\partial x_i \partial x_j}f$。在单个维
+度中，我们能够用 $f''(x)$
+表示$\frac{d^2}{dx^2}$。二阶导数告诉我们当改变输入时一阶导数会如何改变。这很重要，
+因为它告诉我们一个梯度的步进是否会引起足够多的、我们期望的基于梯度自身的改进。我
+们可以把二阶导数看做测量\emph{\gls{curvature}}。假设我们有一个二次函数（许多实际
+出现的函数不是二次的，但是至少局部上能够被很好近似为二次）。如果这样一个函数有一
+个 $0$ 的二阶导数，那么就没有曲率。它是一个完全平整的直线，而且它的值能够只使用梯
+度来预测。如果梯度为 $1$，那么我们能做出一个沿着负的梯度、大小为 $\epsilon$ 的步
+进，而代价函数会减少 $\epsilon$。如果二阶导数是负的，函数曲线朝下，所以代价函数实
+际上会减小超过 $\epsilon$。最后，如果二阶导数是正的，函数曲线朝上，所以代价函数能
+减少小于 $\epsilon$。参见图~\ref{fig:second_derivative} 来了解曲率的不同形式如何
+影响通过梯度预测的代价函数的值和真实值的联系。
+
+\begin{figure}[h]
+  \centering
+  \includegraphics{second_derivative}
+  \caption{二阶导数决定了一个函数的曲率。这里我们展示具有不同曲率的二次函数。虚线
+    指示了代价函数的值~——~我们期望的、当做一个向下的梯度步进时只基于梯度信息的值。
+    在负曲率的情况下，代价函数实际上减小得比梯度预测的更快。在无曲率的情况下，梯
+    度正确预测其减小。在正曲率的情况下，函数减小得比期望的更慢，并最终开始增加，
+    所以太大的步进实际上会不经意地增加函数。\label{fig:second_derivative}}
+\end{figure}
+
+当函数有多个输入维度，就有许多二阶导数。这些导数能够被收集进一个矩阵，被称
+为\emph{\gls{hessian-matrix}}。\gls*{hessian-matrix} $\pmb{H}(f)(\pmb{x})$ 被定义
+为这样
+\begin{equation}
+  \pmb{H}(f)(\pmb{x})_{i,j} = \frac{\partial^2}{\partial x_i \partial x_j}f(\pmb{x})
+\end{equation}
+相等地，海森矩阵是梯度的雅可比矩阵。
+
+任何二阶偏导数连续的地方，微分算子满足交换律，即，它们的顺序可交换：
+\begin{equation}
+  \frac{\partial^2}{\partial x_i \partial y_j}f(\pmb{x}) = \frac{\partial^2}{\partial x_j \partial x_i}f(\pmb{x})
+\end{equation}
+
 \section{Constrained Optimization}
 \label{sec:constrained_optimization}
 
