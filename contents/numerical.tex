@@ -240,6 +240,41 @@ $f(\pmb{x} - \epsilon\nabla_{\pmb{x}}f(\pmb{x}))$，选择导致最小\gls*{obj-
 \begin{equation}
   \frac{\partial^2}{\partial x_i \partial y_j}f(\pmb{x}) = \frac{\partial^2}{\partial x_j \partial x_i}f(\pmb{x})
 \end{equation}
+这意味着
+$H_{i,j} = H_{j,i}$，所以\gls*{hessian-matrix}在这样的点是对称的。我们
+在\gls*{dl}环境中碰到的大部分函数有一个几乎在任何位置对称的\gls*{hessian-matrix}。
+因为\gls*{hessian-matrix}是实数矩阵并且是对称的，我们能够把它分解成一个实
+数\gls*{eigen-vals}集合和一个\gls*{eigen-vecs}的正交基。在一个由一个单
+位\gls*{vec} $\pmb{d}$ 表示的特定方向上的二阶导数，
+由 $\pmb{d}^{\top}\pmb{H}\pmb{d}$ 得出。当 $\pmb{d}$ 是 $\pmb{H}$ 的一
+个\gls*{eigen-vec}，那个方向上的二阶导数由相应的\gls*{eigen-val}得出。对于其
+它 $\pmb{d}$ 的方向，方向性的二阶导数是所有\gls*{eigen-vals}的一个加权平均，具
+有 $0$ 和 $1$ 之间的权重，并且和 $\pmb{d}$ 有更小夹角的\gls*{eigen-vecs}接收更多
+权重。最大的\gls*{eigen-val}决定了最大的二阶导数，而最小的\gls*{eigen-val}决定了
+最小的二阶导数。
+
+（方向性的）二阶导数告诉我们能期待一个梯度下降的步进表现得怎样好。我们可以做一个
+二阶泰勒级数，在当前点 $\pmb{x}^{(0)}$ 处逼近函数 $f(\pmb{x})$：
+\begin{equation}
+  f(\pmb{x}) \approx f(\pmb{x}^{(0)}) + (\pmb{x} - \pmb{x}^{(0)})^{\top}\pmb{g} + \frac{1}{2}(\pmb{x} - \pmb{x}^{(0)})^{\top}\pmb{H}(\pmb{x} - \pmb{x}^{(0)})
+\end{equation}
+这里 $\pmb{g}$ 是梯度，$\pmb{H}$ 是在点 $\pmb{x}^{(0)}$ 的\gls*{hessian-matrix}。
+如果我们使用一个 $\epsilon$ 的\gls*{learning-rate}，那么新的
+点 $\pmb{x}$ 会由 $\pmb{x}^{(0)} - \epsilon\pmb{g}$ 得出。把这代入我们的近似方程，
+我们得到
+\begin{equation}
+  f(\pmb{x}^{(0)} - \epsilon\pmb{g}) \approx f(\pmb{x}^{(0)}) - \epsilon\pmb{g}^{\top}\pmb{g} + \frac{1}{2}\epsilon^2\pmb{g}^{\top}\pmb{H}\pmb{g}
+\end{equation}
+这里有三个项：函数的原始值，由函数斜率引起的期望的改进，以及为了把函数曲率计算在
+内我们必需应用的校正。当最后一项非常大时，梯度下降步进实际上能够往上移动。
+当 $\pmb{g}^{\top}\pmb{H}\pmb{g}$ 是 $0$ 或负数，泰勒级数近似预测了不断地增
+加 $\epsilon$ 会不断地减小 $f$。在实践中，对于大的 $\epsilon$ 泰勒级数不太可能保
+持准确，所以在这种情况下必需借助于更有启发式的 $\epsilon$ 的选择。
+当 $\pmb{g}^{\top}\pmb{H}\pmb{g}$ 是正的，求解最优的步进大小~——~最大地减小函数的
+泰勒级数近似~——~得出
+\begin{equation}
+  \epsilon^* = \frac{\pmb{g}^{\top}\pmb{g}}{\pmb{g}^{\top}\pmb{H}\pmb{g}}
+\end{equation}
 
 \section{Constrained Optimization}
 \label{sec:constrained_optimization}
