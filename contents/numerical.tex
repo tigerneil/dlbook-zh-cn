@@ -276,6 +276,54 @@ $H_{i,j} = H_{j,i}$，所以\gls*{hessian-matrix}在这样的点是对称的。�
   \epsilon^* = \frac{\pmb{g}^{\top}\pmb{g}}{\pmb{g}^{\top}\pmb{H}\pmb{g}}
 \end{equation}
 
+在最坏的情况下，当 $\pmb{g}$ 和 $\pmb{H}$ 对应于最大\gls*{eigen-val}
+$\lambda_{\max}$ 的\gls*{eigen-vec}对齐，那么这个最优步进大小
+由 $\frac{1}{\lambda_{\max}}$ 得出。为了达到我们最小化的函数能够很好地被一个二次
+函数近似的程度，于是\gls*{hessian-matrix}的\gls*{eigen-vals}确定
+了\gls*{learning-rate}的大小。
+
+二阶导数可以被用于确定一个临界点是否是一个局部最大值、局部最小值，或者鞍点。回想
+到在一个临界点上，$f'(x) = 0$。当 $f''(x) > 0$，这意味着当我们往右移动
+时 $f'(x)$增加，当往左移动时 $f'(x)$ 减小。这意味着对于足够小
+的 $\epsilon$，$f'(x - \epsilon) < 0$
+而$f'(x + \epsilon) > 0$。换句话说，当我们往右移动，斜率开始指向右上方，而当我们
+往左移动，斜率开始指向左上方。这样，当 $f'(x) = 0$ 而 $f''(x) > 0$ 时，我们能得出
+结论 $x$ 是一个局部最小值。相似地，当 $f'(x) = 0$ 而 $f''(x) < 0$ 时，我们能得出
+结论 $x$ 是一个局部最大值。这被称为\emph{\gls{second-derivative-test}}。不幸的是，
+当 $f''(x) = 0$，检测是不确定的。在这种情况下，$x$ 可能是一个鞍点，或者是一个平整
+区域的一部分。
+
+在多个维度中，我们需要检查函数的所有二阶导数。使用\gls*{hessian-matrix}的特征分解，
+我们能够把\gls*{second-derivative-test}概括为多个维度。在一个临界
+点，$\nabla_{\pmb{x}}f(\pmb{x}) = 0$，我们能够检
+查\gls*{hessian-matrix}的\gls*{eigen-vals}来确定临界点是否是一个局部最大值、局部
+最小值或鞍点。当\gls*{hessian-matrix}是正无穷（它的所有\gls*{eigen-vals}是正的），
+这个点是一个局部最小值。这可以通过观察在任意方向上的方向性的二阶导数来理解，并参
+考单变量的\gls*{second-derivative-test}。同样的，当\gls*{hessian-matrix}是负无穷
+（它的所有\gls*{eigen-vals}是负的），这个点是一个局部最大值。在多个维度中，有些情
+况下实际上有可能找到鞍点的正的迹象。当至少一个\gls*{eigen-val}是正的以及至少一
+个\gls*{eigen-val}是负的时候，我们知道 $\pmb{x}$ 在一个 $f$ 的横截面上是一个局部
+最大值，但是在另一个横截面上是一个局部最小值。参见图~\ref{fig:saddle_point} 的示
+例。最后，正如单变量的版本，多维的\gls*{second-derivative-test}可以是不确定的。无
+论当所有的非零\gls*{eigen-vals}有相同符号，但至少一个\gls*{eigen-val}是 $0$ 的时
+候，检测是不确定的。这是因为单变量的\gls*{second-derivative-test}在对应于
+零\gls*{eigen-val}的横截面上是不确定的。
+
+\begin{figure}[h]
+  \centering
+  \includegraphics{saddle_point}
+  \caption{一个包含正和负曲率的鞍点。这个函数示例是 $f(\pmb{x}) = x^2_1 - x^2_2$。
+    沿着对应于 $x_1$ 的坐标轴，函数的曲线朝上。这个坐标轴
+    是\gls*{hessian-matrix}的一个\gls*{eigen-vec}并有一个正的\gls*{eigen-val}。沿
+    着对应于 $x_2$ 的坐标轴，函数曲线朝下。这个方向是\gls*{hessian-matrix}的一个
+    具有负的\gls*{eigen-val}的\gls*{eigen-vec}。``鞍点''这个名称衍生自这个函数的
+    马鞍形状。这是一个函数有一个鞍点的典型例子。在超过一个的维度中，为了取得一个
+    鞍点，并不必需要有一个为 $0$ 的\gls*{eigen-val}：唯一必需的是既有正的又有负
+    的\gls*{eigen-vals}。我们能够把一个鞍点看做既是在一个横截面中的局部最大值又是
+    在其它横截面中的局部最小值的\gls*{eigen-vals}的符
+    号。\label{fig:saddle_point}}
+\end{figure}
+
 \section{Constrained Optimization}
 \label{sec:constrained_optimization}
 
