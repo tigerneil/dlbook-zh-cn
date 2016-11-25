@@ -179,12 +179,11 @@ $f$。这被称为\emph{\gls{steepest-descent}}\,或者\emph{\gls{gradient-desce
 \begin{equation}
   \pmb{x}' = \pmb{x} - \epsilon\nabla_{\pmb{x}}f(\pmb{x})
 \end{equation}
-其中 $\epsilon$ 是\emph{\gls{learning-rate}}，一个决定步进大小的正的标量。我们可
-以用几个不同方法来选择 $\epsilon$。一个流行的方法是把 $\epsilon$ 设为一个小的常数。
-有时候，我们能够解步进大小，使方向导数消失。另一种方法是对几个 $\epsilon$ 的值求
-得
-$f(\pmb{x} - \epsilon\nabla_{\pmb{x}}f(\pmb{x}))$，选择导致最小\gls*{obj-func}值
-的那个。最后一个策略被称为一个\emph{\gls{line-search}}。
+其中 $\epsilon$ 是\emph{\gls{learning-rate}}，一个决定步长的正的标量。我们可以用
+几个不同方法来选择 $\epsilon$。一个流行的方法是把 $\epsilon$ 设为一个小的常数。
+有时候，我们能够解步长大小，使方向导数消失。另一种方法是对几个 $\epsilon$ 的值求
+得$f(\pmb{x} - \epsilon\nabla_{\pmb{x}}f(\pmb{x}))$，选择导致最小\gls*{obj-func}
+值的那个。最后一个策略被称为一个\emph{\gls{line-search}}。
 
 最陡下降在梯度中的每个元素为 $0$ （或者，在实践中，非常接近于 $0$）时会于一点。在
 某些情况下，我们可能避免运行这个迭代算法，而只是通过解 $\pmb{x}$ 的方
@@ -266,21 +265,21 @@ $H_{i,j} = H_{j,i}$，所以\gls*{hessian-matrix}在这样的点是对称的。�
   f(\pmb{x}^{(0)} - \epsilon\pmb{g}) \approx f(\pmb{x}^{(0)}) - \epsilon\pmb{g}^{\top}\pmb{g} + \frac{1}{2}\epsilon^2\pmb{g}^{\top}\pmb{H}\pmb{g}
 \end{equation}
 这里有三个项：函数的原始值，由函数斜率引起的期望的改进，以及为了把函数曲率计算在
-内我们必需应用的校正。当最后一项非常大时，梯度下降步进实际上能够往上移动。
-当 $\pmb{g}^{\top}\pmb{H}\pmb{g}$ 是 $0$ 或负数，泰勒级数近似预测了不断地增
-加 $\epsilon$ 会不断地减小 $f$。在实践中，对于大的 $\epsilon$ 泰勒级数不太可能保
-持准确，所以在这种情况下必需借助于更有启发式的 $\epsilon$ 的选择。
-当 $\pmb{g}^{\top}\pmb{H}\pmb{g}$ 是正的，求解最优的步进大小~——~最大地减小函数的
-泰勒级数近似~——~得出
+内我们必需应用的校正。当最后一项非常大时，梯度下降步进实际上能够往上移动。当
+$\pmb{g}^{\top}\pmb{H}\pmb{g}$ 是 $0$ 或负数，泰勒级数近似预测了不断地增加
+$\epsilon$ 会不断地减小 $f$。在实践中，对于大的 $\epsilon$ 泰勒级数不太可能保持
+准确，所以在这种情况下必需借助于更有启发式的 $\epsilon$ 的选择。当
+$\pmb{g}^{\top}\pmb{H}\pmb{g}$ 是正的，求解最优的步长~——~最大地减小函数的泰勒级
+数近似~——~得出
 \begin{equation}
   \epsilon^* = \frac{\pmb{g}^{\top}\pmb{g}}{\pmb{g}^{\top}\pmb{H}\pmb{g}}
 \end{equation}
 
 在最坏的情况下，当 $\pmb{g}$ 和 $\pmb{H}$ 对应于最大\gls*{eigen-val}
-$\lambda_{\max}$ 的\gls*{eigen-vec}对齐，那么这个最优步进大小
-由 $\frac{1}{\lambda_{\max}}$ 得出。为了达到我们最小化的函数能够很好地被一个二次
-函数近似的程度，于是\gls*{hessian-matrix}的\gls*{eigen-vals}确定
-了\gls*{learning-rate}的大小。
+$\lambda_{\max}$ 的\gls*{eigen-vec}对齐，那么这个最优步长由
+$\frac{1}{\lambda_{\max}}$ 得出。为了达到我们最小化的函数能够很好地被一个二次函
+数近似的程度，于是\gls*{hessian-matrix}的\gls*{eigen-vals}确定了
+\gls*{learning-rate}的大小。
 
 二阶导数可以被用于确定一个临界点是否是一个局部最大值、局部最小值，或者鞍点。回想
 到在一个临界点上，$f'(x) = 0$。当 $f''(x) > 0$，这意味着当我们往右移动
@@ -324,8 +323,33 @@ $\lambda_{\max}$ 的\gls*{eigen-vec}对齐，那么这个最优步进大小
     号。\label{fig:saddle_point}}
 \end{figure}
 
-\section{Constrained Optimization}
+在多个维度中，因为在每个方向上有不同的二阶导数，在单个点上能够有很多不同的二阶导
+数。\gls*{hessian-matrix}的条件数衡量二阶导数的变化了多少。当
+\gls*{hessian-matrix}有一个很差的条件数，梯度下降表现得很差。这是因为在一个方向
+上，导数增加地很快，同时在另一个方向上，它则缓慢减小。梯度下降并没有意识到导数中
+的这个变化，所以它不知道它需要优先检查导数长时间里保持负值的方向。它也使得选择一
+个好的步长变得困难。步长必须足够小，以避免超过最小值，并在具有较强正曲率的方向上
+上升。这通常意味着在其他具有较小曲率的方向上，步长太小而不能产生显著的进展。参见
+图~\ref{fig:curvature_in_hessian} 的一个例子。
+
+\begin{figure}[h]
+  \centering
+  \includegraphics{curvature_in_hessian}
+  \caption{梯度下降未能利用包含在\gls*{hessian-matrix}中的曲率信息。这里我们使用
+    梯度下降来最小化一个二次函数 $f(\pmb{x})$，其\gls*{hessian-matrix}的条件数为
+    $5$。这意味着曲率最大的方向比曲率最小的方向多 5 倍的曲率。在这例子中，最大曲
+    率位于方向 ${[1,1]}^{\top}$，而最小曲率位于 ${[1,-1]}^{\top}$ 方向。红色的线
+    表示梯度下降沿着的路径。这个很长的二次函数类似于一个长的峡谷。梯度下降重复地
+    把时间浪费在下降峡谷的侧壁，因为他们是最陡的特征。由于步长过大，它有一个冲过
+    函数底部的趋势，因此需要在下一次迭代是在对面的峡谷侧壁上下降。
+    \gls*{hessian-matrix}的大的正\gls*{eigen-val}~——~对应于指向指这一方向的
+    \gls*{eigen-vec}~——~表明该方向导数的急剧增加，所以一个基于
+    \gls*{hessian-matrix}的优化算法可以预测最速方向实际上不是在这种环境中有用的
+    搜索方向。\label{fig:curvature_in_hessian}}
+\end{figure}
+
+\section{受约束的最优化}
 \label{sec:constrained_optimization}
 
-\section{Example: Linear Least Squares}
+\section{示例：线性最小二乘法}
 \label{sec:example:linear_least_squares}
